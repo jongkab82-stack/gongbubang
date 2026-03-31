@@ -1,0 +1,3270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공부방 통합관리 시스템</title>
+
+  <!-- PWA 설정 -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="공부방관리">
+  <meta name="theme-color" content="#065f46">
+  <meta name="application-name" content="공부방 통합관리">
+  <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIuqzteu2gOuwqSDthrXtlanqtIDrpqwiLAogICJzaG9ydF9uYW1lIjogIuqzteu2gOuwqeq0gOumrCIsCiAgImRlc2NyaXB0aW9uIjogIuyImOqwleyDncK37IiY64KpwrfstpzqsrDCt+yEseyggcK37J6s66y0IO2Gte2VqSDqtIDrpqwg7Iuc7Iqk7YWcIiwKICAic3RhcnRfdXJsIjogIi4vIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMGYwZjEzIiwKICAidGhlbWVfY29sb3IiOiAiIzA2NWY0NiIsCiAgIm9yaWVudGF0aW9uIjogImFueSIsCiAgImxhbmciOiAia28iLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSFpwWlhkQ2IzZzlJakFnTUNBMU1USWdOVEV5SWo0S0lDQThjbVZqZENCM2FXUjBhRDBpTlRFeUlpQm9aV2xuYUhROUlqVXhNaUlnY25nOUlqRXdNQ0lnWm1sc2JEMGlJekEyTldZME5pSXZQZ29nSUR4eVpXTjBJSGc5SWpZd0lpQjVQU0kyTUNJZ2QybGtkR2c5SWpNNU1pSWdhR1ZwWjJoMFBTSXpPVElpSUhKNFBTSTNNQ0lnWm1sc2JEMGlJekEwTnpnMU55SXZQZ29nSUR4MFpYaDBJSGc5SWpJMU5pSWdlVDBpTXpJd0lpQm1iMjUwTFhOcGVtVTlJakk0TUNJZ2RHVjRkQzFoYm1Ob2IzSTlJbTFwWkdSc1pTSWdabTl1ZEMxbVlXMXBiSGs5SW5ObGNtbG1Jajd3bjVPYVBDOTBaWGgwUGdvZ0lEeHlaV04wSUhnOUlqZ3dJaUI1UFNJek9EQWlJSGRwWkhSb1BTSXpOVElpSUdobGFXZG9kRDBpTVRJaUlISjRQU0kySWlCbWFXeHNQU0lqTm1WbE4ySTNJaUJ2Y0dGamFYUjVQU0l3TGpVaUx6NEtQQzl6ZG1jKyIsCiAgICAgICJzaXplcyI6ICJhbnkiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwKICAgICAgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIgogICAgfQogIF0KfQ==">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzA2NWY0NiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjQzMiIgaGVpZ2h0PSI0MzIiIHJ4PSI4MCIgZmlsbD0iIzA0Nzg1NyIvPgogIDxyZWN0IHg9IjEyMCIgeT0iMTMwIiB3aWR0aD0iMjcyIiBoZWlnaHQ9IjMyIiByeD0iMTYiIGZpbGw9IiM2ZWU3YjciLz4KICA8cmVjdCB4PSIxMjAiIHk9IjE4NiIgd2lkdGg9IjI3MiIgaGVpZ2h0PSIyNCIgcng9IjEyIiBmaWxsPSIjYTdmM2QwIiBvcGFjaXR5PSIwLjciLz4KICA8cmVjdCB4PSIxMjAiIHk9IjIzMCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyNCIgcng9IjEyIiBmaWxsPSIjYTdmM2QwIiBvcGFjaXR5PSIwLjUiLz4KICA8cmVjdCB4PSIxMjAiIHk9IjI5MCIgd2lkdGg9IjI3MiIgaGVpZ2h0PSI4MCIgcng9IjEyIiBmaWxsPSIjMDY1ZjQ2IiBzdHJva2U9IiM2ZWU3YjciIHN0cm9rZS13aWR0aD0iMiIvPgogIDxyZWN0IHg9IjEzNiIgeT0iMzA2IiB3aWR0aD0iODAiIGhlaWdodD0iMTIiIHJ4PSI2IiBmaWxsPSIjNmVlN2I3Ii8+CiAgPHJlY3QgeD0iMTM2IiB5PSIzMjYiIHdpZHRoPSIxMjAiIGhlaWdodD0iMTAiIHJ4PSI1IiBmaWxsPSIjYTdmM2QwIiBvcGFjaXR5PSIwLjYiLz4KICA8cmVjdCB4PSIxMjAiIHk9IjM5MCIgd2lkdGg9IjI3MiIgaGVpZ2h0PSIzIiByeD0iMiIgZmlsbD0iIzZlZTdiNyIgb3BhY2l0eT0iMC40Ii8+Cjwvc3ZnPg==">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzA2NWY0NiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjQzMiIgaGVpZ2h0PSI0MzIiIHJ4PSI4MCIgZmlsbD0iIzA0Nzg1NyIvPgogIDxyZWN0IHg9IjEyMCIgeT0iMTMwIiB3aWR0aD0iMjcyIiBoZWlnaHQ9IjMyIiByeD0iMTYiIGZpbGw9IiM2ZWU3YjciLz4KICA8cmVjdCB4PSIxMjAiIHk9IjE4NiIgd2lkdGg9IjI3MiIgaGVpZ2h0PSIyNCIgcng9IjEyIiBmaWxsPSIjYTdmM2QwIiBvcGFjaXR5PSIwLjciLz4KICA8cmVjdCB4PSIxMjAiIHk9IjIzMCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyNCIgcng9IjEyIiBmaWxsPSIjYTdmM2QwIiBvcGFjaXR5PSIwLjUiLz4KICA8cmVjdCB4PSIxMjAiIHk9IjI5MCIgd2lkdGg9IjI3MiIgaGVpZ2h0PSI4MCIgcng9IjEyIiBmaWxsPSIjMDY1ZjQ2IiBzdHJva2U9IiM2ZWU3YjciIHN0cm9rZS13aWR0aD0iMiIvPgogIDxyZWN0IHg9IjEzNiIgeT0iMzA2IiB3aWR0aD0iODAiIGhlaWdodD0iMTIiIHJ4PSI2IiBmaWxsPSIjNmVlN2I3Ii8+CiAgPHJlY3QgeD0iMTM2IiB5PSIzMjYiIHdpZHRoPSIxMjAiIGhlaWdodD0iMTAiIHJ4PSI1IiBmaWxsPSIjYTdmM2QwIiBvcGFjaXR5PSIwLjYiLz4KICA8cmVjdCB4PSIxMjAiIHk9IjM5MCIgd2lkdGg9IjI3MiIgaGVpZ2h0PSIzIiByeD0iMiIgZmlsbD0iIzZlZTdiNyIgb3BhY2l0eT0iMC40Ii8+Cjwvc3ZnPg==">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f13;
+    --surface: #17171f;
+    --surface2: #1e1e28;
+    --border: #2a2a38;
+    --accent: #6ee7b7;
+    --accent2: #f472b6;
+    --accent3: #fbbf24;
+    --text: #e8e8f0;
+    --text2: #9090a8;
+    --text3: #5a5a72;
+    --red: #f87171;
+    --green: #4ade80;
+    --blue: #60a5fa;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+  }
+
+  /* LAYOUT */
+  .app { display: flex; min-height: 100vh; }
+  .sidebar {
+    width: 220px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .main { margin-left: 220px; padding: 32px; flex: 1; max-width: 1100px; }
+
+  /* LOGO */
+  .logo { padding: 0 20px 28px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+  .logo-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  .logo-sub { font-size: 11px; color: var(--text3); margin-top: 3px; font-family: 'DM Mono', monospace; }
+
+  /* NAV */
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text2);
+    transition: all 0.15s;
+    border-left: 3px solid transparent;
+    font-weight: 500;
+  }
+  .nav-item:hover { color: var(--text); background: var(--surface2); }
+  .nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(110,231,183,0.06); }
+  .nav-icon { font-size: 16px; width: 20px; text-align: center; }
+  .nav-section { padding: 16px 20px 6px; font-size: 10px; color: var(--text3); letter-spacing: 1.5px; text-transform: uppercase; font-family: 'DM Mono', monospace; }
+
+  /* PAGE */
+  .page { display: none; }
+  .page.active { display: block; }
+  .page-header { margin-bottom: 28px; }
+  .page-title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.5px; }
+  .page-sub { font-size: 13px; color: var(--text3); margin-top: 4px; }
+
+  /* CARDS */
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+  }
+  .stat-card.green::before { background: var(--green); }
+  .stat-card.accent::before { background: var(--accent); }
+  .stat-card.pink::before { background: var(--accent2); }
+  .stat-card.yellow::before { background: var(--accent3); }
+  .stat-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; font-family: 'DM Mono', monospace; }
+  .stat-value { font-size: 24px; font-weight: 700; margin-top: 8px; letter-spacing: -0.5px; }
+  .stat-value.green { color: var(--green); }
+  .stat-value.accent { color: var(--accent); }
+  .stat-value.pink { color: var(--accent2); }
+  .stat-value.yellow { color: var(--accent3); }
+  .stat-sub { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+  /* PANEL */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .panel-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .panel-title { font-size: 14px; font-weight: 700; color: var(--text); }
+  .panel-body { padding: 20px; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 11px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--text);
+    border-bottom: 1px solid rgba(42,42,56,0.5);
+    vertical-align: middle;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'DM Mono', monospace;
+  }
+  .badge.paid { background: rgba(74,222,128,0.15); color: var(--green); }
+  .badge.unpaid { background: rgba(248,113,113,0.15); color: var(--red); }
+  .badge.partial { background: rgba(251,191,36,0.15); color: var(--accent3); }
+  .badge.active { background: rgba(110,231,183,0.15); color: var(--accent); }
+  .badge.inactive { background: rgba(90,90,114,0.2); color: var(--text3); }
+
+  /* BUTTONS */
+  .btn {
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .btn-primary { background: var(--accent); color: #0f0f13; }
+  .btn-primary:hover { background: #a7f3d0; }
+  .btn-danger { background: rgba(248,113,113,0.15); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
+  .btn-danger:hover { background: rgba(248,113,113,0.25); }
+  .btn-ghost { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+  .btn-ghost:hover { color: var(--text); }
+  .btn-sm { padding: 5px 10px; font-size: 12px; }
+  .btn-icon { padding: 6px 8px; }
+
+  /* FORM */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; font-family: 'DM Mono', monospace; }
+  input, select, textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 9px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: border 0.15s;
+    width: 100%;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
+  select option { background: var(--surface); }
+  textarea { resize: vertical; min-height: 80px; }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .modal-title { font-size: 16px; font-weight: 700; }
+  .modal-close { background: none; border: none; color: var(--text3); cursor: pointer; font-size: 20px; padding: 4px; }
+  .modal-close:hover { color: var(--text); }
+  .modal-footer { margin-top: 24px; display: flex; gap: 10px; justify-content: flex-end; }
+
+  /* TABS */
+  .tabs { display: flex; gap: 2px; background: var(--bg); border-radius: var(--radius-sm); padding: 3px; margin-bottom: 20px; }
+  .tab {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--text3);
+    transition: all 0.15s;
+    border: none;
+    background: none;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .tab.active { background: var(--surface); color: var(--text); }
+  .tab:hover:not(.active) { color: var(--text2); }
+
+  /* SEARCH */
+  .search-bar { position: relative; }
+  .search-bar input { padding-left: 36px; }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 14px; pointer-events: none; }
+
+  /* AMOUNT */
+  .amount-pos { color: var(--green); font-family: 'DM Mono', monospace; font-weight: 500; }
+  .amount-neg { color: var(--red); font-family: 'DM Mono', monospace; font-weight: 500; }
+  .amount-neu { color: var(--text); font-family: 'DM Mono', monospace; }
+
+  /* EMPTY */
+  .empty { text-align: center; padding: 40px; color: var(--text3); }
+  .empty-icon { font-size: 32px; margin-bottom: 10px; }
+  .empty-text { font-size: 13px; }
+
+  /* ALERT */
+  .alert { padding: 12px 16px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: 16px; }
+  .alert-info { background: rgba(96,165,250,0.1); border: 1px solid rgba(96,165,250,0.3); color: var(--blue); }
+
+  /* MONTH NAV */
+  .month-nav { display: flex; align-items: center; gap: 12px; }
+  .month-display { font-size: 15px; font-weight: 700; min-width: 100px; text-align: center; font-family: 'DM Mono', monospace; color: var(--accent); }
+
+  /* PROGRESS */
+  .progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: 8px; }
+  .progress-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+
+  /* ATTENDANCE */
+  .att-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .att-day {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text3);
+  }
+  .att-day.present { background: rgba(74,222,128,0.2); border-color: var(--green); color: var(--green); }
+  .att-day.absent { background: rgba(248,113,113,0.2); border-color: var(--red); color: var(--red); }
+  .att-day.today { border-color: var(--accent); }
+  .att-day.other-month { opacity: 0.3; }
+  .att-day-label { text-align: center; font-size: 10px; color: var(--text3); font-family: 'DM Mono', monospace; padding: 4px 0; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* UTIL */
+  .flex { display: flex; }
+  .gap-2 { gap: 8px; }
+  .gap-3 { gap: 12px; }
+  .items-center { align-items: center; }
+  .justify-between { justify-content: space-between; }
+  .text-right { text-align: right; }
+  .mt-4 { margin-top: 16px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  /* PRINT MODAL */
+  .print-modal {
+    width: 560px;
+  }
+  .print-option-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .print-option {
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+  }
+  .print-option:hover { border-color: var(--accent); background: rgba(110,231,183,0.04); }
+  .print-option.selected { border-color: var(--accent); background: rgba(110,231,183,0.08); }
+  .print-option input[type=checkbox] { display: none; }
+  .print-option-icon { font-size: 20px; }
+  .print-option-label { font-size: 13px; font-weight: 600; color: var(--text); }
+  .print-option-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .print-check {
+    margin-left: auto;
+    width: 18px; height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    color: transparent;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .print-option.selected .print-check { background: var(--accent); border-color: var(--accent); color: #0f0f13; }
+  .print-format-row { display: flex; gap: 10px; margin-bottom: 20px; }
+  .print-format-btn {
+    flex: 1; padding: 10px; border-radius: var(--radius-sm);
+    border: 2px solid var(--border); background: none;
+    color: var(--text2); font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.15s;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .print-format-btn:hover { border-color: var(--accent); color: var(--text); }
+  .print-format-btn.selected { border-color: var(--accent); background: rgba(110,231,183,0.08); color: var(--accent); }
+  .print-section-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; font-family: 'DM Mono', monospace; margin-bottom: 10px; }
+
+  /* PRINT STYLES */
+  @media print {
+    body > * { display: none !important; }
+    #print-area { display: block !important; position: static !important; background: white; color: black; }
+  }
+
+  /* PRINT AREA (screen preview hidden) */
+  #print-area { display: none; }
+
+  /* PRINT DOCUMENT STYLES */
+  .pdoc {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: white;
+    color: #111;
+    padding: 32px 40px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .pdoc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid #111;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+  }
+  .pdoc-title { font-size: 20px; font-weight: 900; letter-spacing: -0.5px; }
+  .pdoc-meta { font-size: 11px; color: #666; text-align: right; line-height: 1.8; }
+  .pdoc table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  .pdoc th {
+    background: #111; color: white;
+    padding: 8px 10px; font-size: 11px;
+    text-align: left; font-weight: 700;
+  }
+  .pdoc td { padding: 7px 10px; border-bottom: 1px solid #ddd; font-size: 12px; vertical-align: middle; }
+  .pdoc tr:nth-child(even) td { background: #f8f8f8; }
+  .pdoc .tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700; }
+  .pdoc .tag-paid { background: #d1fae5; color: #065f46; }
+  .pdoc .tag-unpaid { background: #fee2e2; color: #991b1b; }
+  .pdoc .tag-partial { background: #fef3c7; color: #92400e; }
+  .pdoc .tag-present { background: #d1fae5; color: #065f46; }
+  .pdoc .tag-absent { background: #fee2e2; color: #991b1b; }
+  .pdoc .tag-income { background: #d1fae5; color: #065f46; }
+  .pdoc .tag-expense { background: #fee2e2; color: #991b1b; }
+  .pdoc-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .pdoc-stat {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  .pdoc-stat-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+  .pdoc-stat-value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+  .pdoc-section-title { font-size: 13px; font-weight: 700; border-left: 4px solid #111; padding-left: 10px; margin-bottom: 12px; }
+  .pdoc-att-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 8px; }
+  .pdoc-att-day { text-align: center; padding: 5px 2px; font-size: 11px; border: 1px solid #ddd; border-radius: 4px; }
+  .pdoc-att-day.present { background: #d1fae5; color: #065f46; font-weight: 700; border-color: #6ee7b7; }
+  .pdoc-att-day.absent { background: #fee2e2; color: #991b1b; font-weight: 700; border-color: #fca5a5; }
+  .pdoc-att-day.header { background: #111; color: white; font-weight: 700; border-color: #111; }
+  .pdoc-att-day.empty { border-color: transparent; background: none; }
+  .pdoc-pagebreak { page-break-before: always; }
+  .pdoc-footer { border-top: 1px solid #ddd; margin-top: 24px; padding-top: 10px; font-size: 10px; color: #aaa; display: flex; justify-content: space-between; }
+
+  /* CHART */
+  .chart-wrap { position: relative; height: 180px; display: flex; align-items: flex-end; gap: 6px; padding: 0 4px; }
+  .chart-bar-group { flex: 1; display: flex; gap: 3px; align-items: flex-end; flex-direction: column; justify-content: flex-end; }
+  .chart-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .chart-bars { display: flex; gap: 3px; align-items: flex-end; width: 100%; justify-content: center; }
+  .chart-bar { border-radius: 4px 4px 0 0; min-height: 4px; transition: height 0.4s ease; cursor: default; position: relative; }
+  .chart-bar:hover::after {
+    content: attr(data-tip);
+    position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+    background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+    font-size: 11px; padding: 4px 8px; border-radius: 6px; white-space: nowrap; z-index: 10;
+    font-family: 'DM Mono', monospace;
+  }
+  .chart-label { font-size: 10px; color: var(--text3); font-family: 'DM Mono', monospace; text-align: center; margin-top: 6px; }
+  .chart-legend { display: flex; gap: 16px; margin-top: 12px; justify-content: center; }
+  .chart-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text3); }
+  .chart-legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+  /* ALERT BANNER */
+  .alert-banner {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.25);
+    border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 12px; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .alert-banner:hover { background: rgba(248,113,113,0.13); }
+  .alert-banner.yellow { background: rgba(251,191,36,0.08); border-color: rgba(251,191,36,0.25); }
+  .alert-banner.yellow:hover { background: rgba(251,191,36,0.13); }
+  .alert-banner.blue { background: rgba(96,165,250,0.08); border-color: rgba(96,165,250,0.25); }
+  .alert-banner.blue:hover { background: rgba(96,165,250,0.13); }
+  .alert-banner-icon { font-size: 18px; flex-shrink: 0; }
+  .alert-banner-body { flex: 1; }
+  .alert-banner-title { font-size: 13px; font-weight: 700; color: var(--red); }
+  .alert-banner.yellow .alert-banner-title { color: var(--accent3); }
+  .alert-banner.blue .alert-banner-title { color: var(--blue); }
+  .alert-banner-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .alert-banner-count {
+    font-size: 20px; font-weight: 900; color: var(--red);
+    font-family: 'DM Mono', monospace; flex-shrink: 0;
+  }
+  .alert-banner.yellow .alert-banner-count { color: var(--accent3); }
+  .alert-banner.blue .alert-banner-count { color: var(--blue); }
+
+  /* EXPORT BTN */
+  .btn-export { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.3); }
+  .btn-export:hover { background: rgba(96,165,250,0.22); }
+
+  /* WELCOME / FIRST RUN */
+  .welcome-step { display: none; }
+  .welcome-step.active { display: block; }
+  .welcome-icon { font-size: 48px; text-align: center; margin-bottom: 16px; }
+  .welcome-title { font-size: 20px; font-weight: 900; text-align: center; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .welcome-sub { font-size: 13px; color: var(--text3); text-align: center; margin-bottom: 24px; line-height: 1.7; }
+  .welcome-warning {
+    background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.3);
+    border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 16px;
+    font-size: 13px; color: var(--text2); line-height: 1.8;
+  }
+  .welcome-warning strong { color: var(--red); }
+  .welcome-check-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text2);
+  }
+  .welcome-check-item:last-child { border-bottom: none; }
+  .welcome-check-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--accent); color: #0f0f13;
+    font-size: 11px; font-weight: 900; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .step-dots { display: flex; justify-content: center; gap: 6px; margin-bottom: 20px; }
+  .step-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: all 0.2s; }
+  .step-dot.active { background: var(--accent); width: 20px; border-radius: 4px; }
+
+  /* SETTINGS */
+  .settings-section { margin-bottom: 28px; }
+  .settings-section-title {
+    font-size: 11px; color: var(--text3); text-transform: uppercase;
+    letter-spacing: 1px; font-family: 'DM Mono', monospace;
+    margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+  .settings-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0; border-bottom: 1px solid rgba(42,42,56,0.4);
+  }
+  .settings-row:last-child { border-bottom: none; }
+  .settings-label { font-size: 13px; font-weight: 600; color: var(--text); }
+  .settings-desc { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .settings-input { background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 7px 12px; border-radius: var(--radius-sm); font-size: 13px; font-family: 'Noto Sans KR', sans-serif; width: 200px; }
+  .settings-input:focus { outline: none; border-color: var(--accent); }
+
+  /* PRO-TIP BOX */
+  .protip {
+    background: rgba(110,231,183,0.06); border: 1px solid rgba(110,231,183,0.2);
+    border-radius: var(--radius-sm); padding: 12px 16px;
+    font-size: 12px; color: var(--text3); line-height: 1.7; margin-top: 12px;
+  }
+  .protip strong { color: var(--accent); }
+
+  /* PRORATA */
+  .prorata-result {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 16px; margin-top: 16px; text-align: center;
+  }
+  .prorata-amount { font-size: 28px; font-weight: 900; color: var(--accent); font-family: 'DM Mono', monospace; letter-spacing: -1px; }
+  .prorata-detail { font-size: 12px; color: var(--text3); margin-top: 6px; line-height: 1.6; }
+
+  /* AUTOSAVE INDICATOR */
+  .autosave-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; color: var(--accent); font-family: 'DM Mono', monospace;
+    opacity: 0; transition: opacity 0.3s;
+    position: absolute; right: 48px; top: 50%; transform: translateY(-50%);
+  }
+  .autosave-badge.show { opacity: 1; }
+  .autosave-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); animation: pulse 1s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .modal-header { position: relative; }
+
+  /* MOBILE BOTTOM NAV */
+  .mobile-nav {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    z-index: 50;
+    padding: 6px 0 env(safe-area-inset-bottom, 6px);
+  }
+  .mobile-nav-inner { display: flex; justify-content: space-around; }
+  .mob-nav-item {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 6px 10px; cursor: pointer; border-radius: 8px;
+    font-size: 10px; color: var(--text3); transition: all 0.15s; min-width: 52px;
+  }
+  .mob-nav-item.active { color: var(--accent); }
+  .mob-nav-item .mob-icon { font-size: 20px; }
+
+  /* MOBILE MORE MENU */
+  .mobile-more-panel {
+    display: none;
+    position: fixed; bottom: 68px; left: 0; right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    z-index: 49;
+    padding: 12px 16px;
+  }
+  .mobile-more-panel.open { display: block; }
+  .mob-more-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 8px; font-size: 14px; cursor: pointer;
+    border-bottom: 1px solid var(--border); color: var(--text2);
+  }
+  .mob-more-item:last-child { border-bottom: none; }
+  .mob-more-item:hover { color: var(--text); }
+
+  /* BACKUP MODAL */
+  .backup-info {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 16px;
+    font-size: 12px; color: var(--text3); line-height: 1.8;
+  }
+  .backup-info strong { color: var(--text); }
+  .backup-action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .backup-btn {
+    border: 2px solid var(--border); border-radius: var(--radius-sm);
+    padding: 16px; cursor: pointer; text-align: center;
+    background: none; transition: all 0.15s; font-family: 'Noto Sans KR', sans-serif;
+  }
+  .backup-btn:hover { border-color: var(--accent); background: rgba(110,231,183,0.05); }
+  .backup-btn .bb-icon { font-size: 24px; margin-bottom: 8px; }
+  .backup-btn .bb-title { font-size: 13px; font-weight: 700; color: var(--text); }
+  .backup-btn .bb-sub { font-size: 11px; color: var(--text3); margin-top: 4px; }
+  .backup-history { max-height: 150px; overflow-y: auto; }
+  .backup-history-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 12px;
+  }
+  .backup-history-item:last-child { border-bottom: none; }
+
+  /* GRADES PAGE */
+  .grade-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .grade-card:hover { border-color: var(--accent); }
+  .grade-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .grade-score {
+    font-size: 28px; font-weight: 900; font-family: 'DM Mono', monospace;
+    letter-spacing: -1px;
+  }
+
+  /* CLASS PAGE */
+  .class-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px; transition: all 0.15s;
+  }
+  .class-card:hover { border-color: var(--accent); }
+  .class-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+  .class-member-chip {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    background: rgba(110,231,183,0.1); color: var(--accent);
+    font-size: 11px; margin: 2px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .mobile-nav { display: block; }
+    .main { margin-left: 0; padding: 16px 14px 80px; max-width: 100%; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+    .grid-2 { grid-template-columns: 1fr; gap: 12px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-grid-3 { grid-template-columns: 1fr; }
+    .class-grid { grid-template-columns: repeat(2, 1fr); }
+    .grade-grid { grid-template-columns: repeat(2, 1fr); }
+    .modal { width: calc(100vw - 32px) !important; max-height: 85vh; margin: 0 16px; }
+    .modal-overlay { align-items: flex-end; padding-bottom: env(safe-area-inset-bottom, 0); }
+    .page-title { font-size: 18px; }
+    .stat-value { font-size: 20px; }
+    td, th { padding: 8px 10px; font-size: 12px; }
+    .btn { padding: 7px 12px; font-size: 12px; }
+    .page-header.flex { flex-wrap: wrap; gap: 10px; }
+    .panel-header.flex { flex-wrap: wrap; gap: 8px; }
+    .backup-action-grid { grid-template-columns: 1fr 1fr; }
+    .print-option-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .class-grid { grid-template-columns: 1fr; }
+    .grade-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PWA 설치 배너 (안드로이드) -->
+<div id="pwa-install-banner" style="display:none; position:fixed; bottom:80px; left:16px; right:16px; z-index:200;
+  background:var(--surface); border:1px solid var(--accent); border-radius:var(--radius);
+  padding:14px 16px; align-items:center; gap:12px; box-shadow:0 8px 32px rgba(0,0,0,0.4)">
+  <div style="font-size:24px">📲</div>
+  <div style="flex:1">
+    <div style="font-size:13px; font-weight:700; color:var(--text)">앱으로 설치하기</div>
+    <div style="font-size:11px; color:var(--text3)">홈 화면에 추가하면 앱처럼 사용 가능합니다</div>
+  </div>
+  <button onclick="installPWA()" class="btn btn-primary btn-sm">설치</button>
+  <button onclick="document.getElementById('pwa-install-banner').style.display='none'"
+    style="background:none; border:none; color:var(--text3); cursor:pointer; font-size:18px; padding:4px">✕</button>
+</div>
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-title">📚 공부방 관리</div>
+    <div class="logo-sub" id="sidebar-academy-name">STUDY ROOM MANAGER v2.1</div>
+  </div>
+  <div class="nav-section">메인</div>
+  <div class="nav-item active" onclick="showPage('dashboard')"><span class="nav-icon">📊</span> 대시보드</div>
+  <div class="nav-section">학생</div>
+  <div class="nav-item" onclick="showPage('students')"><span class="nav-icon">👥</span> 수강생 관리</div>
+  <div class="nav-item" onclick="showPage('classes')"><span class="nav-icon">🏫</span> 반 관리</div>
+  <div class="nav-item" onclick="showPage('attendance')"><span class="nav-icon">📅</span> 출결 관리</div>
+  <div class="nav-item" onclick="showPage('grades')"><span class="nav-icon">📝</span> 성적 관리</div>
+  <div class="nav-section">재무</div>
+  <div class="nav-item" onclick="showPage('tuition')"><span class="nav-icon">💳</span> 수강료 수납</div>
+  <div class="nav-item" onclick="showPage('finance')"><span class="nav-icon">📒</span> 매출/지출 장부</div>
+  <div class="nav-section">설정</div>
+  <div class="nav-item" onclick="showPage('settings')"><span class="nav-icon">⚙️</span> 설정</div>
+  <div style="padding: 16px 16px 0; border-top: 1px solid var(--border); margin-top: 20px; display:flex; flex-direction:column; gap:8px">
+    <button class="btn btn-primary" style="width:100%; font-size:13px" onclick="openModal('print-modal')">🖨️ 프린트</button>
+    <button class="btn btn-export" style="width:100%; font-size:13px" onclick="openModal('backup-modal')">💾 백업 / 복원</button>
+    <div style="text-align:center; padding-top:8px; font-size:10px; color:var(--text3); font-family:'DM Mono',monospace; line-height:1.8">
+      v2.1 · <span id="sidebar-support-link" style="cursor:pointer; text-decoration:underline" onclick="showPage('settings')">문의/지원</span>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- DASHBOARD -->
+<div id="page-dashboard" class="page active">
+  <div class="page-header">
+    <div class="page-title">대시보드</div>
+    <div class="page-sub" id="today-date"></div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-card accent">
+      <div class="stat-label">총 수강생</div>
+      <div class="stat-value accent" id="dash-total-students">0</div>
+      <div class="stat-sub">활성 수강생</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-label">이번 달 매출</div>
+      <div class="stat-value green" id="dash-monthly-revenue">0</div>
+      <div class="stat-sub">원</div>
+    </div>
+    <div class="stat-card pink">
+      <div class="stat-label">이번 달 지출</div>
+      <div class="stat-value pink" id="dash-monthly-expense">0</div>
+      <div class="stat-sub">원</div>
+    </div>
+    <div class="stat-card yellow">
+      <div class="stat-label">미납 수강생</div>
+      <div class="stat-value yellow" id="dash-unpaid">0</div>
+      <div class="stat-sub">명</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">📋 이번 달 수납 현황</div>
+      </div>
+      <div class="panel-body" id="dash-tuition-summary"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">💰 최근 거래 내역</div>
+      </div>
+      <div class="panel-body" id="dash-recent-tx" style="padding:0"></div>
+    </div>
+  </div>
+
+  <!-- ALERTS ROW -->
+  <div id="dash-alerts" style="margin-bottom:20px"></div>
+
+  <!-- CHART -->
+  <div class="panel">
+    <div class="panel-header flex justify-between items-center">
+      <div class="panel-title">📈 월별 매출 / 지출 추이 (최근 6개월)</div>
+    </div>
+    <div class="panel-body">
+      <div class="chart-wrap" id="dash-chart"></div>
+      <div class="chart-legend">
+        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:var(--green)"></div>매출</div>
+        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:var(--accent2)"></div>지출</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STUDENTS -->
+<div id="page-students" class="page">
+  <div class="page-header flex justify-between items-center">
+    <div>
+      <div class="page-title">수강생 관리</div>
+      <div class="page-sub">수강생 등록 및 정보 관리</div>
+    </div>
+    <button class="btn btn-primary" onclick="openModal('student-modal')">+ 수강생 등록</button>
+    <button class="btn btn-export btn-sm" onclick="exportCSV('students')" style="margin-left:8px">⬇ CSV 내보내기</button>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header flex justify-between items-center">
+      <div class="flex gap-2 items-center">
+        <div class="search-bar">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="student-search" placeholder="이름 또는 연락처 검색..." oninput="renderStudents()" style="width:240px">
+        </div>
+      </div>
+      <div class="flex gap-2">
+        <select id="student-filter" onchange="renderStudents()" style="width:auto">
+          <option value="all">전체</option>
+          <option value="active">수강중</option>
+          <option value="inactive">중단</option>
+        </select>
+      </div>
+    </div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr>
+            <th>이름</th><th>연락처</th><th>수강 과목</th><th>수강료</th><th>등록일</th><th>상태</th><th>관리</th>
+          </tr>
+        </thead>
+        <tbody id="student-table"></tbody>
+      </table>
+      <div id="student-empty" class="empty" style="display:none">
+        <div class="empty-icon">👤</div>
+        <div class="empty-text">등록된 수강생이 없습니다</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ATTENDANCE -->
+<div id="page-attendance" class="page">
+  <div class="page-header flex justify-between items-center">
+    <div>
+      <div class="page-title">출결 관리</div>
+      <div class="page-sub">수강생별 출결 현황 관리</div>
+    </div>
+  </div>
+  <div class="flex gap-3 items-center" style="margin-bottom:20px">
+    <select id="att-student-select" onchange="renderAttendanceCalendar()" style="width:200px">
+      <option value="">수강생 선택...</option>
+    </select>
+    <div class="month-nav">
+      <button class="btn btn-ghost btn-sm" onclick="changeAttMonth(-1)">◀</button>
+      <div class="month-display" id="att-month-display"></div>
+      <button class="btn btn-ghost btn-sm" onclick="changeAttMonth(1)">▶</button>
+    </div>
+    <span style="font-size:12px; color:var(--text3)">날짜 클릭: 출석 ↔ 결석 토글</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">📅 출결 달력</div></div>
+      <div class="panel-body">
+        <div class="flex" style="margin-bottom:8px">
+          <div class="att-day-label" style="flex:1">일</div>
+          <div class="att-day-label" style="flex:1">월</div>
+          <div class="att-day-label" style="flex:1">화</div>
+          <div class="att-day-label" style="flex:1">수</div>
+          <div class="att-day-label" style="flex:1">목</div>
+          <div class="att-day-label" style="flex:1">금</div>
+          <div class="att-day-label" style="flex:1">토</div>
+        </div>
+        <div class="att-grid" id="att-calendar"></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">📊 이번 달 통계</div></div>
+      <div class="panel-body" id="att-stats">
+        <div class="empty"><div class="empty-icon">📅</div><div class="empty-text">수강생을 선택해주세요</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TUITION -->
+<div id="page-tuition" class="page">
+  <div class="page-header flex justify-between items-center">
+    <div>
+      <div class="page-title">수강료 수납</div>
+      <div class="page-sub">월별 수강료 납부 현황 관리</div>
+    </div>
+    <div class="flex gap-2 items-center">
+      <div class="month-nav">
+        <button class="btn btn-ghost btn-sm" onclick="changeTuitionMonth(-1)">◀</button>
+        <div class="month-display" id="tuition-month-display"></div>
+        <button class="btn btn-ghost btn-sm" onclick="changeTuitionMonth(1)">▶</button>
+      </div>
+      <button class="btn btn-primary" onclick="generateMonthlyTuition()">월 수납표 생성</button>
+      <button class="btn btn-export" onclick="exportCSV('tuition')">⬇ CSV</button>
+    </div>
+  </div>
+
+  <div class="stat-grid" style="grid-template-columns: repeat(3,1fr)">
+    <div class="stat-card green">
+      <div class="stat-label">납부 완료</div>
+      <div class="stat-value green" id="t-paid-count">0명</div>
+    </div>
+    <div class="stat-card yellow">
+      <div class="stat-label">미납</div>
+      <div class="stat-value yellow" id="t-unpaid-count">0명</div>
+    </div>
+    <div class="stat-card accent">
+      <div class="stat-label">총 수납액</div>
+      <div class="stat-value accent" id="t-total-amount">0원</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr><th>수강생</th><th>수강 과목</th><th>수강료</th><th>납부액</th><th>납부일</th><th>상태</th><th>관리</th></tr>
+        </thead>
+        <tbody id="tuition-table"></tbody>
+      </table>
+      <div id="tuition-empty" class="empty" style="display:none">
+        <div class="empty-icon">💳</div>
+        <div class="empty-text">수납 내역이 없습니다. 월 수납표를 생성하세요.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINANCE -->
+<div id="page-finance" class="page">
+  <div class="page-header flex justify-between items-center">
+    <div>
+      <div class="page-title">매출 / 지출 장부</div>
+      <div class="page-sub">공부방 재무 내역 통합 관리</div>
+    </div>
+    <div class="flex gap-2">
+      <button class="btn btn-export" onclick="exportCSV('finance')">⬇ CSV 내보내기</button>
+      <button class="btn btn-primary" onclick="openModal('finance-modal')">+ 내역 추가</button>
+    </div>
+  </div>
+
+  <div class="flex gap-2 items-center" style="margin-bottom:20px">
+    <div class="month-nav">
+      <button class="btn btn-ghost btn-sm" onclick="changeFinanceMonth(-1)">◀</button>
+      <div class="month-display" id="finance-month-display"></div>
+      <button class="btn btn-ghost btn-sm" onclick="changeFinanceMonth(1)">▶</button>
+    </div>
+    <div class="tabs" style="margin-bottom:0">
+      <button class="tab active" id="ftab-all" onclick="setFinanceTab('all')">전체</button>
+      <button class="tab" id="ftab-income" onclick="setFinanceTab('income')">매출</button>
+      <button class="tab" id="ftab-expense" onclick="setFinanceTab('expense')">지출</button>
+    </div>
+  </div>
+
+  <div class="stat-grid" style="grid-template-columns: repeat(3,1fr); margin-bottom: 20px">
+    <div class="stat-card green">
+      <div class="stat-label">이번 달 매출</div>
+      <div class="stat-value green" id="f-income">0원</div>
+    </div>
+    <div class="stat-card pink">
+      <div class="stat-label">이번 달 지출</div>
+      <div class="stat-value pink" id="f-expense">0원</div>
+    </div>
+    <div class="stat-card accent">
+      <div class="stat-label">순이익</div>
+      <div class="stat-value accent" id="f-profit">0원</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr><th>날짜</th><th>구분</th><th>카테고리</th><th>내용</th><th class="text-right">금액</th><th>메모</th><th>관리</th></tr>
+        </thead>
+        <tbody id="finance-table"></tbody>
+      </table>
+      <div id="finance-empty" class="empty" style="display:none">
+        <div class="empty-icon">📒</div>
+        <div class="empty-text">이번 달 거래 내역이 없습니다</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLASSES -->
+<div id="page-classes" class="page">
+  <div class="page-header flex justify-between items-center">
+    <div>
+      <div class="page-title">반 관리</div>
+      <div class="page-sub">클래스별 수강생 그룹 관리</div>
+    </div>
+    <button class="btn btn-primary" onclick="openModal('class-modal')">+ 반 등록</button>
+  </div>
+  <div class="class-grid" id="class-grid"></div>
+  <div id="class-empty" class="empty panel" style="display:none; padding:40px">
+    <div class="empty-icon">🏫</div>
+    <div class="empty-text">등록된 반이 없습니다</div>
+  </div>
+</div>
+
+<!-- GRADES -->
+<div id="page-grades" class="page">
+  <div class="page-header flex justify-between items-center">
+    <div>
+      <div class="page-title">성적 관리</div>
+      <div class="page-sub">수강생별 시험 성적 기록</div>
+    </div>
+    <button class="btn btn-primary" onclick="openModal('grade-modal')">+ 성적 입력</button>
+  </div>
+
+  <div class="flex gap-2 items-center" style="margin-bottom:16px; flex-wrap:wrap">
+    <select id="grade-student-filter" onchange="renderGrades()" style="width:160px">
+      <option value="">전체 수강생</option>
+    </select>
+    <select id="grade-subject-filter" onchange="renderGrades()" style="width:140px">
+      <option value="">전체 과목</option>
+    </select>
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="grade-search" placeholder="시험명 검색..." oninput="renderGrades()" style="width:180px">
+    </div>
+  </div>
+
+  <div class="panel">
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr><th>날짜</th><th>수강생</th><th>과목</th><th>시험명</th><th>점수</th><th>등급</th><th>메모</th><th>관리</th></tr>
+        </thead>
+        <tbody id="grade-table"></tbody>
+      </table>
+      <div id="grade-empty" class="empty" style="display:none">
+        <div class="empty-icon">📝</div>
+        <div class="empty-text">성적 기록이 없습니다</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div id="page-settings" class="page">
+  <div class="page-header">
+    <div class="page-title">설정</div>
+    <div class="page-sub">공부방 정보 및 프로그램 설정</div>
+  </div>
+
+  <div style="max-width:600px">
+    <!-- 공부방 정보 -->
+    <div class="settings-section">
+      <div class="settings-section-title">🏫 공부방 정보</div>
+      <div class="settings-row">
+        <div><div class="settings-label">공부방 이름</div><div class="settings-desc">프린트물 및 화면 상단에 표시됩니다</div></div>
+        <input class="settings-input" id="set-academy-name" placeholder="○○공부방" oninput="saveSettings()">
+      </div>
+      <div class="settings-row">
+        <div><div class="settings-label">원장 이름</div><div class="settings-desc">프린트물 하단에 표시됩니다</div></div>
+        <input class="settings-input" id="set-director-name" placeholder="홍길동" oninput="saveSettings()">
+      </div>
+      <div class="settings-row">
+        <div><div class="settings-label">공부방 연락처</div><div class="settings-desc">프린트물에 표시됩니다</div></div>
+        <input class="settings-input" id="set-academy-phone" placeholder="055-000-0000" oninput="saveSettings()">
+      </div>
+      <div class="settings-row">
+        <div><div class="settings-label">공부방 주소</div><div class="settings-desc">선택사항</div></div>
+        <input class="settings-input" id="set-academy-addr" placeholder="창원시 ○○동 ..." oninput="saveSettings()">
+      </div>
+    </div>
+
+    <!-- 일할 계산기 -->
+    <div class="settings-section">
+      <div class="settings-section-title">🔢 수강료 일할 계산기</div>
+      <div class="panel-body" style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>월 수강료 (원)</label>
+            <input type="number" id="pr-fee" placeholder="150000" oninput="calcProrata()">
+          </div>
+          <div class="form-group">
+            <label>등록일</label>
+            <input type="date" id="pr-start" oninput="calcProrata()">
+          </div>
+        </div>
+        <div id="prorata-result" style="display:none" class="prorata-result">
+          <div class="prorata-amount" id="pr-amount">0원</div>
+          <div class="prorata-detail" id="pr-detail"></div>
+        </div>
+        <div class="protip">
+          <strong>사용법</strong> — 월 수강료와 등록일을 입력하면 해당 월 일할 금액을 자동 계산합니다.<br>
+          예) 15만원 / 15일 등록 → 해당 월 잔여일 기준 계산
+        </div>
+      </div>
+    </div>
+
+    <!-- 구글 시트 연동 -->
+    <div class="settings-section">
+      <div class="settings-section-title">☁️ 구글 시트 연동</div>
+      <div class="panel" style="padding:20px">
+        <div class="settings-row">
+          <div>
+            <div class="settings-label">Apps Script URL</div>
+            <div class="settings-desc">구글 시트 배포 후 받은 웹 앱 URL</div>
+          </div>
+        </div>
+        <input type="text" id="set-gsheet-url" placeholder="https://script.google.com/macros/s/..." 
+          style="width:100%; margin-bottom:12px; font-size:12px" oninput="saveGsheetUrl()">
+        
+        <div class="flex gap-2" style="margin-bottom:12px; flex-wrap:wrap">
+          <button class="btn btn-ghost btn-sm" onclick="gsheetPing()">🔗 연결 테스트</button>
+          <button class="btn btn-primary btn-sm" onclick="gsheetPush()">⬆️ 구글 시트로 저장</button>
+          <button class="btn btn-export btn-sm" onclick="gsheetPull()">⬇️ 구글 시트에서 불러오기</button>
+        </div>
+
+        <div id="gsync-status" style="display:none; padding:10px 14px; border-radius:var(--radius-sm); font-size:12px; margin-bottom:12px"></div>
+
+        <div class="settings-row" style="padding-top:8px">
+          <div><div class="settings-label">자동 동기화</div><div class="settings-desc">저장할 때마다 구글 시트에 자동 반영</div></div>
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer">
+            <input type="checkbox" id="set-gsync-auto" onchange="saveGsheetUrl()" style="display:inline; width:auto">
+            <span style="font-size:12px; color:var(--text2)">사용</span>
+          </label>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-label">마지막 동기화</div></div>
+          <span id="gsync-last-time" style="font-size:12px; color:var(--text3); font-family:'DM Mono',monospace">-</span>
+        </div>
+
+        <div class="protip" style="margin-top:8px">
+          <strong>설정 방법</strong> — 아래 순서대로 진행하세요:<br>
+          1. <a href="https://sheets.google.com" target="_blank" style="color:var(--accent)">구글 시트</a> 새 문서 열기<br>
+          2. 확장 프로그램 → Apps Script → 코드 붙여넣기 → 저장<br>
+          3. 배포 → 새 배포 → 웹 앱 → <strong style="color:var(--accent)">액세스: 모든 사용자</strong> → 배포<br>
+          4. 생성된 URL을 위 입력창에 붙여넣기 → 연결 테스트
+        </div>
+      </div>
+    </div>
+
+    <!-- 고객 지원 -->
+    <div class="settings-section">
+      <div class="settings-section-title">📞 고객 지원</div>
+      <div class="panel" style="padding:20px">
+        <div class="settings-row">
+          <div><div class="settings-label">카카오톡 문의</div><div class="settings-desc">사용 중 문제 발생 시</div></div>
+          <a id="set-kakao-link" href="#" target="_blank" class="btn btn-ghost btn-sm" style="text-decoration:none">카톡 문의</a>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-label">프로그램 버전</div><div class="settings-desc">공부방 통합관리 시스템</div></div>
+          <span style="font-family:'DM Mono',monospace; font-size:13px; color:var(--accent)">v2.1</span>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-label">데이터 저장 방식</div><div class="settings-desc">브라우저 로컬 저장소</div></div>
+          <span id="set-data-size" style="font-family:'DM Mono',monospace; font-size:12px; color:var(--text3)">계산 중...</span>
+        </div>
+        <div class="protip" style="margin-top:0">
+          <strong>⚠️ 주의</strong> — 브라우저 캐시/데이터 삭제 시 모든 정보가 사라집니다.<br>
+          반드시 <strong>월 1회 이상 백업</strong>을 실행해 주세요.
+        </div>
+      </div>
+    </div>
+
+    <!-- 데이터 초기화 -->
+    <div class="settings-section">
+      <div class="settings-section-title">⚠️ 위험 구역</div>
+      <div class="panel" style="padding:20px; border-color:rgba(248,113,113,0.3)">
+        <div class="settings-row">
+          <div><div class="settings-label" style="color:var(--red)">전체 데이터 초기화</div><div class="settings-desc">모든 수강생·수납·장부 데이터 삭제</div></div>
+          <button class="btn btn-danger btn-sm" onclick="resetAllData()">초기화</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<!-- MODALS -->
+
+<!-- WELCOME / FIRST RUN MODAL -->
+<div class="modal-overlay" id="welcome-modal">
+  <div class="modal" style="width:480px">
+    <div class="step-dots" id="welcome-dots"></div>
+
+    <!-- Step 1: 환영 -->
+    <div class="welcome-step active" id="ws-1">
+      <div class="welcome-icon">🎓</div>
+      <div class="welcome-title">공부방 통합관리 시스템</div>
+      <div class="welcome-sub">수강생 관리부터 수납·출결·성적·재무까지<br>공부방 운영에 필요한 모든 것을 한 곳에서!</div>
+      <div class="form-group" style="margin-bottom:16px">
+        <label>공부방 이름을 입력해 주세요 *</label>
+        <input type="text" id="welcome-academy-name" placeholder="○○공부방" style="font-size:15px; padding:12px">
+      </div>
+      <div class="form-group" style="margin-bottom:20px">
+        <label>원장 이름</label>
+        <input type="text" id="welcome-director-name" placeholder="홍길동">
+      </div>
+      <button class="btn btn-primary" style="width:100%; padding:12px; font-size:14px" onclick="welcomeNext(1)">다음 →</button>
+    </div>
+
+    <!-- Step 2: 백업 경고 -->
+    <div class="welcome-step" id="ws-2">
+      <div class="welcome-icon">⚠️</div>
+      <div class="welcome-title">반드시 읽어주세요!</div>
+      <div class="welcome-sub">데이터 분실을 막기 위한 중요한 안내입니다</div>
+      <div class="welcome-warning">
+        <strong>🚨 이 프로그램의 데이터는 이 컴퓨터 브라우저에만 저장됩니다.</strong><br><br>
+        아래 상황에서 모든 데이터가 <strong>영구 삭제</strong>됩니다:<br>
+        · 브라우저 캐시 / 방문 기록 삭제<br>
+        · 브라우저 재설치<br>
+        · 컴퓨터 포맷 / 교체<br>
+        · 다른 브라우저에서 열기
+      </div>
+      <div class="welcome-check-item">
+        <div class="welcome-check-num">1</div>
+        <div>매월 1회 이상 <strong style="color:var(--accent)">백업 → JSON 파일 저장</strong>을 실행해 주세요</div>
+      </div>
+      <div class="welcome-check-item">
+        <div class="welcome-check-num">2</div>
+        <div>백업 파일은 USB 또는 구글 드라이브에 보관하세요</div>
+      </div>
+      <div class="welcome-check-item" style="margin-bottom:20px">
+        <div class="welcome-check-num">3</div>
+        <div>항상 <strong style="color:var(--accent)">같은 브라우저</strong>에서 이 파일을 열어주세요</div>
+      </div>
+      <div class="flex gap-2">
+        <button class="btn btn-ghost" style="flex:1; padding:12px" onclick="welcomePrev(2)">← 이전</button>
+        <button class="btn btn-primary" style="flex:2; padding:12px; font-size:14px" onclick="welcomeNext(2)">이해했습니다 →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: 시작 -->
+    <div class="welcome-step" id="ws-3">
+      <div class="welcome-icon">🚀</div>
+      <div class="welcome-title">준비 완료!</div>
+      <div class="welcome-sub">공부방 관리를 시작할 준비가 됐습니다.<br>설정 메뉴에서 언제든 정보를 수정할 수 있습니다.</div>
+      <div style="background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px; margin-bottom:20px">
+        <div style="font-size:12px; color:var(--text3); margin-bottom:12px; font-family:'DM Mono',monospace; letter-spacing:0.5px">빠른 시작 순서</div>
+        <div class="welcome-check-item">
+          <div class="welcome-check-num">1</div>
+          <div>수강생 관리 → 수강생 등록</div>
+        </div>
+        <div class="welcome-check-item">
+          <div class="welcome-check-num">2</div>
+          <div>수강료 수납 → 월 수납표 생성</div>
+        </div>
+        <div class="welcome-check-item" style="border-bottom:none">
+          <div class="welcome-check-num">3</div>
+          <div>대시보드에서 현황 한눈에 확인</div>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="width:100%; padding:14px; font-size:15px; font-weight:700" onclick="finishWelcome()">🎉 시작하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- BACKUP MODAL -->
+<div class="modal-overlay" id="backup-modal">
+  <div class="modal" style="width:460px">
+    <div class="modal-header">
+      <div class="modal-title">💾 데이터 백업 / 복원</div>
+      <button class="modal-close" onclick="closeModal('backup-modal')">✕</button>
+    </div>
+    <div class="backup-info">
+      <strong>⚠️ 중요</strong> — 브라우저 초기화, 캐시 삭제, 컴퓨터 교체 시 데이터가 사라집니다.<br>
+      정기적으로 백업 파일을 저장해 두세요. <strong>월 1회 이상 권장</strong>합니다.
+    </div>
+    <div class="backup-action-grid">
+      <button class="backup-btn" onclick="doBackup()">
+        <div class="bb-icon">⬇️</div>
+        <div class="bb-title">백업 다운로드</div>
+        <div class="bb-sub">JSON 파일로 저장</div>
+      </button>
+      <label class="backup-btn" style="cursor:pointer">
+        <div class="bb-icon">⬆️</div>
+        <div class="bb-title">백업 복원</div>
+        <div class="bb-sub">JSON 파일에서 불러오기</div>
+        <input type="file" id="restore-file" accept=".json" style="display:none" onchange="doRestore(event)">
+      </label>
+    </div>
+    <div class="print-section-label" style="margin-top:8px">백업 이력</div>
+    <div class="backup-history" id="backup-history"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('backup-modal')">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- CLASS MODAL -->
+<div class="modal-overlay" id="class-modal">
+  <div class="modal" style="width:440px">
+    <div class="modal-header">
+      <div class="modal-title" id="class-modal-title">반 등록</div>
+      <span class="autosave-badge" id="as-class-modal"><div class="autosave-dot"></div>임시저장됨</span>
+      <button class="modal-close" onclick="closeModal('class-modal')">✕</button>
+    </div>
+    <input type="hidden" id="class-edit-id">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>반 이름 *</label>
+        <input type="text" id="cl-name" placeholder="예: 중등 수학반">
+      </div>
+      <div class="form-group">
+        <label>과목</label>
+        <input type="text" id="cl-subject" placeholder="수학">
+      </div>
+      <div class="form-group">
+        <label>수업 요일</label>
+        <input type="text" id="cl-days" placeholder="월·수·금">
+      </div>
+      <div class="form-group">
+        <label>수업 시간</label>
+        <input type="text" id="cl-time" placeholder="18:00 ~ 20:00">
+      </div>
+      <div class="form-group full">
+        <label>수강생 선택 (복수 가능)</label>
+        <div id="cl-student-list" style="display:flex; flex-wrap:wrap; gap:8px; padding:10px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); min-height:60px;"></div>
+      </div>
+      <div class="form-group full">
+        <label>메모</label>
+        <input type="text" id="cl-memo" placeholder="담당 강사, 교재 등">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('class-modal')">취소</button>
+      <button class="btn btn-primary" onclick="saveClass()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- GRADE MODAL -->
+<div class="modal-overlay" id="grade-modal">
+  <div class="modal" style="width:440px">
+    <div class="modal-header">
+      <div class="modal-title" id="grade-modal-title">성적 입력</div>
+      <span class="autosave-badge" id="as-grade-modal"><div class="autosave-dot"></div>임시저장됨</span>
+      <button class="modal-close" onclick="closeModal('grade-modal')">✕</button>
+    </div>
+    <input type="hidden" id="grade-edit-id">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>수강생 *</label>
+        <select id="gr-student"></select>
+      </div>
+      <div class="form-group">
+        <label>날짜 *</label>
+        <input type="date" id="gr-date">
+      </div>
+      <div class="form-group">
+        <label>과목 *</label>
+        <input type="text" id="gr-subject" placeholder="수학">
+      </div>
+      <div class="form-group">
+        <label>시험명 *</label>
+        <input type="text" id="gr-exam" placeholder="1월 단원평가">
+      </div>
+      <div class="form-group">
+        <label>점수 (0~100)</label>
+        <input type="number" id="gr-score" min="0" max="100" placeholder="85">
+      </div>
+      <div class="form-group">
+        <label>만점 기준</label>
+        <input type="number" id="gr-total" placeholder="100" value="100">
+      </div>
+      <div class="form-group full">
+        <label>메모</label>
+        <input type="text" id="gr-memo" placeholder="특이사항">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('grade-modal')">취소</button>
+      <button class="btn btn-primary" onclick="saveGrade()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav">
+  <div class="mobile-nav-inner">
+    <div class="mob-nav-item active" id="mobnav-dashboard" onclick="showPage('dashboard');closeMobileMore()">
+      <span class="mob-icon">📊</span><span>대시보드</span>
+    </div>
+    <div class="mob-nav-item" id="mobnav-students" onclick="showPage('students');closeMobileMore()">
+      <span class="mob-icon">👥</span><span>수강생</span>
+    </div>
+    <div class="mob-nav-item" id="mobnav-tuition" onclick="showPage('tuition');closeMobileMore()">
+      <span class="mob-icon">💳</span><span>수납</span>
+    </div>
+    <div class="mob-nav-item" id="mobnav-finance" onclick="showPage('finance');closeMobileMore()">
+      <span class="mob-icon">📒</span><span>장부</span>
+    </div>
+    <div class="mob-nav-item" id="mobnav-more" onclick="toggleMobileMore()">
+      <span class="mob-icon">☰</span><span>더보기</span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MORE PANEL -->
+<div class="mobile-more-panel" id="mobile-more-panel">
+  <div class="mob-more-item" onclick="showPage('attendance');closeMobileMore()">📅 출결 관리</div>
+  <div class="mob-more-item" onclick="showPage('grades');closeMobileMore()">📝 성적 관리</div>
+  <div class="mob-more-item" onclick="showPage('classes');closeMobileMore()">🏫 반 관리</div>
+  <div class="mob-more-item" onclick="showPage('settings');closeMobileMore()">⚙️ 설정</div>
+  <div class="mob-more-item" onclick="openModal('backup-modal');closeMobileMore()">💾 백업 / 복원</div>
+  <div class="mob-more-item" onclick="openModal('print-modal');closeMobileMore()">🖨️ 프린트</div>
+</div>
+
+<!-- Student Modal -->
+<div class="modal-overlay" id="student-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="student-modal-title">수강생 등록</div>
+      <span class="autosave-badge" id="as-student-modal"><div class="autosave-dot"></div>임시저장됨</span>
+      <button class="modal-close" onclick="closeModal('student-modal')">✕</button>
+    </div>
+    <input type="hidden" id="student-edit-id">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>이름 *</label>
+        <input type="text" id="s-name" placeholder="홍길동">
+      </div>
+      <div class="form-group">
+        <label>연락처</label>
+        <input type="text" id="s-phone" placeholder="010-0000-0000">
+      </div>
+      <div class="form-group">
+        <label>보호자 연락처</label>
+        <input type="text" id="s-parent-phone" placeholder="부모님 연락처">
+      </div>
+      <div class="form-group">
+        <label>생년월일</label>
+        <input type="date" id="s-birth">
+      </div>
+      <div class="form-group">
+        <label>수강 과목 *</label>
+        <input type="text" id="s-subject" placeholder="수학, 영어 등">
+      </div>
+      <div class="form-group">
+        <label>월 수강료 (원) *</label>
+        <input type="number" id="s-fee" placeholder="150000">
+      </div>
+      <div class="form-group">
+        <label>등록일 *</label>
+        <input type="date" id="s-enroll">
+      </div>
+      <div class="form-group">
+        <label>상태</label>
+        <select id="s-status">
+          <option value="active">수강중</option>
+          <option value="inactive">중단</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>메모</label>
+        <textarea id="s-memo" placeholder="특이사항 등"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('student-modal')">취소</button>
+      <button class="btn btn-primary" onclick="saveStudent()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- Tuition Payment Modal -->
+<div class="modal-overlay" id="tuition-modal">
+  <div class="modal" style="width:400px">
+    <div class="modal-header">
+      <div class="modal-title">수강료 납부 처리</div>
+      <button class="modal-close" onclick="closeModal('tuition-modal')">✕</button>
+    </div>
+    <input type="hidden" id="tuition-edit-id">
+    <div style="margin-bottom:16px; padding:12px; background:var(--bg); border-radius:var(--radius-sm)">
+      <div id="tuition-modal-info" style="font-size:13px; color:var(--text2)"></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>납부액 (원)</label>
+        <input type="number" id="t-amount" placeholder="0">
+      </div>
+      <div class="form-group">
+        <label>납부일</label>
+        <input type="date" id="t-date">
+      </div>
+      <div class="form-group">
+        <label>납부 방법</label>
+        <select id="t-method">
+          <option value="현금">현금</option>
+          <option value="계좌이체">계좌이체</option>
+          <option value="카드">카드</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>상태</label>
+        <select id="t-status">
+          <option value="paid">납부 완료</option>
+          <option value="partial">부분 납부</option>
+          <option value="unpaid">미납</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('tuition-modal')">취소</button>
+      <button class="btn btn-primary" onclick="saveTuition()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- Print Modal -->
+<div class="modal-overlay" id="print-modal">
+  <div class="modal print-modal">
+    <div class="modal-header">
+      <div class="modal-title">🖨️ 프린트 설정</div>
+      <button class="modal-close" onclick="closeModal('print-modal')">✕</button>
+    </div>
+
+    <div class="print-section-label">출력할 항목 선택</div>
+    <div class="print-option-grid">
+      <label class="print-option selected" id="popt-students" onclick="togglePrintOpt('students')">
+        <div class="print-option-icon">👥</div>
+        <div>
+          <div class="print-option-label">수강생 명단</div>
+          <div class="print-option-sub">전체 수강생 목록</div>
+        </div>
+        <div class="print-check">✓</div>
+      </label>
+      <label class="print-option selected" id="popt-tuition" onclick="togglePrintOpt('tuition')">
+        <div class="print-option-icon">💳</div>
+        <div>
+          <div class="print-option-label">수납 현황표</div>
+          <div class="print-option-sub">현재 선택 월 기준</div>
+        </div>
+        <div class="print-check">✓</div>
+      </label>
+      <label class="print-option selected" id="popt-attendance" onclick="togglePrintOpt('attendance')">
+        <div class="print-option-icon">📅</div>
+        <div>
+          <div class="print-option-label">출결 현황표</div>
+          <div class="print-option-sub">현재 선택 학생/월 기준</div>
+        </div>
+        <div class="print-check">✓</div>
+      </label>
+      <label class="print-option selected" id="popt-finance" onclick="togglePrintOpt('finance')">
+        <div class="print-option-icon">📒</div>
+        <div>
+          <div class="print-option-label">매출/지출 장부</div>
+          <div class="print-option-sub">현재 선택 월 기준</div>
+        </div>
+        <div class="print-check">✓</div>
+      </label>
+    </div>
+
+    <div class="print-section-label">출력 형식</div>
+    <div class="print-format-row">
+      <button class="print-format-btn selected" id="pfmt-clean" onclick="setPrintFormat('clean')">📄 흑백 정리표</button>
+      <button class="print-format-btn" id="pfmt-screen" onclick="setPrintFormat('screen')">🖥️ 화면 그대로</button>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('print-modal')">취소</button>
+      <button class="btn btn-primary" onclick="doPrint()">🖨️ 프린트 실행</button>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden print area -->
+<div id="print-area"></div>
+
+<!-- Finance Modal -->
+<div class="modal-overlay" id="finance-modal">
+  <div class="modal" style="width:420px">
+    <div class="modal-header">
+      <div class="modal-title" id="finance-modal-title">거래 내역 추가</div>
+      <span class="autosave-badge" id="as-finance-modal"><div class="autosave-dot"></div>임시저장됨</span>
+      <button class="modal-close" onclick="closeModal('finance-modal')">✕</button>
+    </div>
+    <input type="hidden" id="finance-edit-id">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>날짜 *</label>
+        <input type="date" id="f-date">
+      </div>
+      <div class="form-group">
+        <label>구분 *</label>
+        <select id="f-type" onchange="updateFinanceCategories()">
+          <option value="income">매출</option>
+          <option value="expense">지출</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>카테고리 *</label>
+        <select id="f-category"></select>
+      </div>
+      <div class="form-group">
+        <label>금액 (원) *</label>
+        <input type="number" id="f-amount" placeholder="0">
+      </div>
+      <div class="form-group full">
+        <label>내용 *</label>
+        <input type="text" id="f-desc" placeholder="거래 내용">
+      </div>
+      <div class="form-group full">
+        <label>메모</label>
+        <input type="text" id="f-memo" placeholder="추가 메모">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('finance-modal')">취소</button>
+      <button class="btn btn-primary" onclick="saveFinance()">저장</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========================
+// DATA LAYER
+// ========================
+const DB = {
+  get: (key) => JSON.parse(localStorage.getItem('academy_' + key) || '[]'),
+  set: (key, val) => localStorage.setItem('academy_' + key, JSON.stringify(val)),
+  students: () => DB.get('students'),
+  tuitions: () => DB.get('tuitions'),
+  finances: () => DB.get('finances'),
+  setStudents: (d) => DB.set('students', d),
+  setTuitions: (d) => DB.set('tuitions', d),
+  setFinances: (d) => DB.set('finances', d),
+};
+
+// ========================
+// STATE
+// ========================
+let currentPage = 'dashboard';
+let attYear, attMonth, tuitionYear, tuitionMonth, financeYear, financeMonth;
+let financeTab = 'all';
+
+const now = new Date();
+attYear = now.getFullYear(); attMonth = now.getMonth();
+tuitionYear = now.getFullYear(); tuitionMonth = now.getMonth();
+financeYear = now.getFullYear(); financeMonth = now.getMonth();
+
+// ========================
+// NAVIGATION
+// ========================
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.mob-nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  const navEl = document.querySelector(`[onclick="showPage('${page}')"]`);
+  if (navEl) navEl.classList.add('active');
+  // mobile nav highlight
+  const mobMap = { dashboard:'dashboard', students:'students', tuition:'tuition', finance:'finance' };
+  if (mobMap[page]) {
+    const mob = document.getElementById('mobnav-' + page);
+    if (mob) mob.classList.add('active');
+  }
+  currentPage = page;
+  if (page === 'dashboard') renderDashboard();
+  if (page === 'students') renderStudents();
+  if (page === 'attendance') { renderAttStudentSelect(); renderAttendanceCalendar(); }
+  if (page === 'tuition') renderTuition();
+  if (page === 'finance') renderFinance();
+  if (page === 'classes') renderClasses();
+  if (page === 'grades') renderGrades();
+  if (page === 'settings') loadSettingsPage();
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  if (id === 'finance-modal') { updateFinanceCategories(); setToday('f-date'); }
+  if (id === 'student-modal') { document.getElementById('student-modal-title').textContent = '수강생 등록'; clearStudentForm(); setToday('s-enroll'); }
+}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function setToday(id) { document.getElementById(id).value = now.toISOString().split('T')[0]; }
+
+// ========================
+// UTILS
+// ========================
+function uid() { return Date.now().toString(36) + Math.random().toString(36).substr(2); }
+function fmt(n) { return Number(n).toLocaleString('ko-KR'); }
+function monthStr(y, m) { return `${y}년 ${m+1}월`; }
+
+// ========================
+// DASHBOARD
+// ========================
+function renderDashboard() {
+  document.getElementById('today-date').textContent = now.toLocaleDateString('ko-KR', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+
+  const students = DB.students().filter(s => s.status === 'active');
+  const tuitions = DB.tuitions();
+  const finances = DB.finances();
+  const curMonthKey = `${now.getFullYear()}-${now.getMonth()}`;
+
+  document.getElementById('dash-total-students').textContent = students.length + '명';
+
+  const monthFinances = finances.filter(f => {
+    const d = new Date(f.date);
+    return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+  });
+  const revenue = monthFinances.filter(f => f.type === 'income').reduce((s,f) => s + Number(f.amount), 0);
+  const expense = monthFinances.filter(f => f.type === 'expense').reduce((s,f) => s + Number(f.amount), 0);
+  document.getElementById('dash-monthly-revenue').textContent = fmt(revenue);
+  document.getElementById('dash-monthly-expense').textContent = fmt(expense);
+
+  const monthTuitions = tuitions.filter(t => t.monthKey === curMonthKey);
+  const unpaid = monthTuitions.filter(t => t.status === 'unpaid').length;
+  document.getElementById('dash-unpaid').textContent = unpaid + '명';
+
+  // Tuition summary
+  const paid = monthTuitions.filter(t => t.status === 'paid').length;
+  const partial = monthTuitions.filter(t => t.status === 'partial').length;
+  const total = monthTuitions.length;
+  const totalAmt = monthTuitions.reduce((s,t) => s + (t.status !== 'unpaid' ? Number(t.paidAmount||0) : 0), 0);
+  const el = document.getElementById('dash-tuition-summary');
+  if (!total) { el.innerHTML = '<div class="empty"><div class="empty-icon">💳</div><div class="empty-text">이번 달 수납표를 생성하세요</div></div>'; }
+  else {
+    el.innerHTML = `
+      <div class="flex justify-between" style="margin-bottom:12px">
+        <span style="color:var(--text3); font-size:13px">납부 완료</span>
+        <span class="badge paid">${paid}명</span>
+      </div>
+      <div class="flex justify-between" style="margin-bottom:12px">
+        <span style="color:var(--text3); font-size:13px">부분 납부</span>
+        <span class="badge partial">${partial}명</span>
+      </div>
+      <div class="flex justify-between" style="margin-bottom:16px">
+        <span style="color:var(--text3); font-size:13px">미납</span>
+        <span class="badge unpaid">${unpaid}명</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width:${total ? Math.round((paid+partial)/total*100) : 0}%; background:var(--accent)"></div>
+      </div>
+      <div style="font-size:11px; color:var(--text3); margin-top:6px; font-family:'DM Mono',monospace">
+        수납률 ${total ? Math.round((paid+partial)/total*100) : 0}% · 총 ${fmt(totalAmt)}원
+      </div>
+    `;
+  }
+
+  // Recent transactions
+  const recent = [...finances].sort((a,b) => new Date(b.date)-new Date(a.date)).slice(0,5);
+  const rtEl = document.getElementById('dash-recent-tx');
+  if (!recent.length) { rtEl.innerHTML = '<div class="empty" style="padding:24px"><div class="empty-icon">💸</div><div class="empty-text">거래 내역 없음</div></div>'; }
+  else {
+    rtEl.innerHTML = '<table>' + recent.map(t => `
+      <tr>
+        <td style="font-size:11px; color:var(--text3); font-family:'DM Mono',monospace">${t.date}</td>
+        <td style="font-size:12px">${t.category}</td>
+        <td style="font-family:'DM Mono',monospace; font-size:13px; font-weight:600; color:${t.type==='income'?'var(--green)':'var(--red)'}; text-align:right">
+          ${t.type==='income'?'+':'-'}${fmt(t.amount)}
+        </td>
+      </tr>
+    `).join('') + '</table>';
+  }
+
+  // ALERTS
+  renderAlerts(students, monthTuitions);
+
+  // CHART
+  renderChart();
+}
+
+function renderAlerts(students, monthTuitions) {
+  const alertEl = document.getElementById('dash-alerts');
+  let html = '';
+
+  // 1. 미납 알림
+  const unpaidList = monthTuitions.filter(t => t.status === 'unpaid');
+  if (unpaidList.length > 0) {
+    const names = unpaidList.map(t => t.studentName).join(', ');
+    html += `<div class="alert-banner" onclick="showPage('tuition')">
+      <div class="alert-banner-icon">🔴</div>
+      <div class="alert-banner-body">
+        <div class="alert-banner-title">이번 달 미납 수강생</div>
+        <div class="alert-banner-sub">${names}</div>
+      </div>
+      <div class="alert-banner-count">${unpaidList.length}명</div>
+    </div>`;
+  }
+
+  // 2. 부분납부 알림
+  const partialList = monthTuitions.filter(t => t.status === 'partial');
+  if (partialList.length > 0) {
+    const names = partialList.map(t => {
+      const diff = (t.fee || 0) - (t.paidAmount || 0);
+      return `${t.studentName}(${fmt(diff)}원 잔액)`;
+    }).join(', ');
+    html += `<div class="alert-banner yellow" onclick="showPage('tuition')">
+      <div class="alert-banner-icon">🟡</div>
+      <div class="alert-banner-body">
+        <div class="alert-banner-title">부분 납부 — 잔액 미납</div>
+        <div class="alert-banner-sub">${names}</div>
+      </div>
+      <div class="alert-banner-count">${partialList.length}명</div>
+    </div>`;
+  }
+
+  // 3. 이번 달 생일
+  const thisMonth = now.getMonth() + 1;
+  const birthdayStudents = students.filter(s => {
+    if (!s.birth) return false;
+    const m = parseInt(s.birth.split('-')[1]);
+    return m === thisMonth;
+  });
+  if (birthdayStudents.length > 0) {
+    const names = birthdayStudents.map(s => {
+      const day = s.birth.split('-')[2];
+      return `${s.name}(${parseInt(day)}일)`;
+    }).join(', ');
+    html += `<div class="alert-banner blue">
+      <div class="alert-banner-icon">🎂</div>
+      <div class="alert-banner-body">
+        <div class="alert-banner-title">이번 달 생일인 수강생</div>
+        <div class="alert-banner-sub">${names}</div>
+      </div>
+      <div class="alert-banner-count">${birthdayStudents.length}명</div>
+    </div>`;
+  }
+
+  // 4. 재등록 임박 (등록일 기준 1년 이내 30일 이내 만료)
+  const reEnrollStudents = students.filter(s => {
+    if (!s.enroll) return false;
+    const enroll = new Date(s.enroll);
+    const nextAnniv = new Date(enroll);
+    nextAnniv.setFullYear(now.getFullYear());
+    if (nextAnniv < now) nextAnniv.setFullYear(now.getFullYear() + 1);
+    const diff = Math.ceil((nextAnniv - now) / (1000 * 60 * 60 * 24));
+    return diff <= 30 && diff >= 0;
+  });
+  if (reEnrollStudents.length > 0) {
+    const names = reEnrollStudents.map(s => {
+      const enroll = new Date(s.enroll);
+      const nextAnniv = new Date(enroll);
+      nextAnniv.setFullYear(now.getFullYear());
+      if (nextAnniv < now) nextAnniv.setFullYear(now.getFullYear() + 1);
+      const diff = Math.ceil((nextAnniv - now) / (1000 * 60 * 60 * 24));
+      return `${s.name}(${diff}일 후)`;
+    }).join(', ');
+    html += `<div class="alert-banner yellow">
+      <div class="alert-banner-icon">🔄</div>
+      <div class="alert-banner-body">
+        <div class="alert-banner-title">재등록 주기 임박 (30일 이내)</div>
+        <div class="alert-banner-sub">${names}</div>
+      </div>
+      <div class="alert-banner-count">${reEnrollStudents.length}명</div>
+    </div>`;
+  }
+
+  alertEl.innerHTML = html;
+}
+
+function renderChart() {
+  const chartEl = document.getElementById('dash-chart');
+  const finances = DB.finances();
+
+  // Build 6 months data
+  const months = [];
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    months.push({ year: d.getFullYear(), month: d.getMonth(), label: `${d.getMonth()+1}월` });
+  }
+
+  const data = months.map(m => {
+    const mf = finances.filter(f => {
+      const d = new Date(f.date);
+      return d.getFullYear() === m.year && d.getMonth() === m.month;
+    });
+    return {
+      label: m.label,
+      income: mf.filter(f => f.type==='income').reduce((s,f) => s+Number(f.amount), 0),
+      expense: mf.filter(f => f.type==='expense').reduce((s,f) => s+Number(f.amount), 0),
+    };
+  });
+
+  const maxVal = Math.max(...data.map(d => Math.max(d.income, d.expense)), 1);
+  const maxH = 150;
+
+  chartEl.innerHTML = data.map(d => {
+    const ih = Math.max(Math.round(d.income / maxVal * maxH), d.income > 0 ? 4 : 0);
+    const eh = Math.max(Math.round(d.expense / maxVal * maxH), d.expense > 0 ? 4 : 0);
+    return `
+      <div class="chart-col">
+        <div class="chart-bars">
+          <div class="chart-bar" style="width:18px; height:${ih}px; background:var(--green);" data-tip="매출 ${fmt(d.income)}원"></div>
+          <div class="chart-bar" style="width:18px; height:${eh}px; background:var(--accent2);" data-tip="지출 ${fmt(d.expense)}원"></div>
+        </div>
+        <div class="chart-label">${d.label}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ========================
+// CSV EXPORT
+// ========================
+function exportCSV(type) {
+  let csv = '';
+  let filename = '';
+
+  if (type === 'students') {
+    csv = '이름,연락처,보호자연락처,생년월일,수강과목,월수강료,등록일,상태,메모\n';
+    DB.students().forEach(s => {
+      csv += `"${s.name}","${s.phone||''}","${s.parentPhone||''}","${s.birth||''}","${s.subject}","${s.fee}","${s.enroll}","${s.status==='active'?'수강중':'중단'}","${s.memo||''}"\n`;
+    });
+    filename = `수강생명단_${now.toISOString().split('T')[0]}.csv`;
+  }
+
+  if (type === 'tuition') {
+    const monthKey = `${tuitionYear}-${tuitionMonth}`;
+    csv = '수강생,수강과목,수강료,납부액,납부일,납부방법,상태\n';
+    DB.tuitions().filter(t => t.monthKey === monthKey).forEach(t => {
+      const statusLabel = t.status==='paid'?'납부완료':t.status==='partial'?'부분납부':'미납';
+      csv += `"${t.studentName}","${t.subject}","${t.fee}","${t.paidAmount||0}","${t.paidDate||''}","${t.method||''}","${statusLabel}"\n`;
+    });
+    filename = `수납현황_${monthStr(tuitionYear,tuitionMonth)}.csv`;
+  }
+
+  if (type === 'finance') {
+    csv = '날짜,구분,카테고리,내용,금액,메모\n';
+    const mf = DB.finances().filter(f => {
+      const d = new Date(f.date);
+      return d.getFullYear() === financeYear && d.getMonth() === financeMonth;
+    }).sort((a,b) => new Date(a.date)-new Date(b.date));
+    mf.forEach(f => {
+      csv += `"${f.date}","${f.type==='income'?'매출':'지출'}","${f.category}","${f.desc}","${f.amount}","${f.memo||''}"\n`;
+    });
+    filename = `매출지출장부_${monthStr(financeYear,financeMonth)}.csv`;
+  }
+
+  // BOM for Korean encoding in Excel
+  const bom = '\uFEFF';
+  const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+
+// ========================
+// STUDENTS
+// ========================
+function clearStudentForm() {
+  ['s-name','s-phone','s-parent-phone','s-subject','s-fee','s-memo'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('s-birth').value = '';
+  document.getElementById('s-status').value = 'active';
+  document.getElementById('student-edit-id').value = '';
+}
+
+function saveStudent() {
+  const name = document.getElementById('s-name').value.trim();
+  const subject = document.getElementById('s-subject').value.trim();
+  const fee = document.getElementById('s-fee').value;
+  const enroll = document.getElementById('s-enroll').value;
+  if (!name || !subject || !fee || !enroll) { alert('필수 항목을 입력해주세요 (이름, 수강 과목, 수강료, 등록일)'); return; }
+
+  const data = {
+    name, subject, fee: Number(fee), enroll, status: document.getElementById('s-status').value,
+    phone: document.getElementById('s-phone').value,
+    parentPhone: document.getElementById('s-parent-phone').value,
+    birth: document.getElementById('s-birth').value,
+    memo: document.getElementById('s-memo').value,
+  };
+
+  const students = DB.students();
+  const editId = document.getElementById('student-edit-id').value;
+  if (editId) {
+    const idx = students.findIndex(s => s.id === editId);
+    students[idx] = { ...students[idx], ...data };
+  } else {
+    students.push({ id: uid(), ...data });
+  }
+  DB.setStudents(students);
+  closeModal('student-modal');
+  renderStudents();
+}
+
+function editStudent(id) {
+  const s = DB.students().find(s => s.id === id);
+  document.getElementById('student-modal-title').textContent = '수강생 정보 수정';
+  document.getElementById('student-edit-id').value = id;
+  document.getElementById('s-name').value = s.name;
+  document.getElementById('s-phone').value = s.phone || '';
+  document.getElementById('s-parent-phone').value = s.parentPhone || '';
+  document.getElementById('s-birth').value = s.birth || '';
+  document.getElementById('s-subject').value = s.subject;
+  document.getElementById('s-fee').value = s.fee;
+  document.getElementById('s-enroll').value = s.enroll;
+  document.getElementById('s-status').value = s.status;
+  document.getElementById('s-memo').value = s.memo || '';
+  openModal('student-modal');
+  document.getElementById('s-enroll').value = s.enroll;
+}
+
+function deleteStudent(id) {
+  if (!confirm('수강생을 삭제하시겠습니까?')) return;
+  DB.setStudents(DB.students().filter(s => s.id !== id));
+  renderStudents();
+}
+
+function renderStudents() {
+  const search = document.getElementById('student-search').value.toLowerCase();
+  const filter = document.getElementById('student-filter').value;
+  let students = DB.students();
+  if (filter !== 'all') students = students.filter(s => s.status === filter);
+  if (search) students = students.filter(s => s.name.toLowerCase().includes(search) || (s.phone||'').includes(search));
+
+  const tbody = document.getElementById('student-table');
+  const empty = document.getElementById('student-empty');
+  if (!students.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  tbody.innerHTML = students.map(s => `
+    <tr>
+      <td><strong>${s.name}</strong></td>
+      <td style="color:var(--text2)">${s.phone || '-'}</td>
+      <td>${s.subject}</td>
+      <td class="amount-neu">${fmt(s.fee)}원</td>
+      <td style="color:var(--text3); font-size:12px; font-family:'DM Mono',monospace">${s.enroll}</td>
+      <td><span class="badge ${s.status}">${s.status==='active'?'수강중':'중단'}</span></td>
+      <td>
+        <div class="flex gap-2">
+          <button class="btn btn-ghost btn-sm" onclick="editStudent('${s.id}')">수정</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteStudent('${s.id}')">삭제</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+// ========================
+// ATTENDANCE
+// ========================
+function renderAttStudentSelect() {
+  const sel = document.getElementById('att-student-select');
+  const cur = sel.value;
+  const students = DB.students().filter(s => s.status === 'active');
+  sel.innerHTML = '<option value="">수강생 선택...</option>' + students.map(s => `<option value="${s.id}" ${s.id===cur?'selected':''}>${s.name}</option>`).join('');
+}
+
+function changeAttMonth(delta) {
+  attMonth += delta;
+  if (attMonth < 0) { attMonth = 11; attYear--; }
+  if (attMonth > 11) { attMonth = 0; attYear++; }
+  renderAttendanceCalendar();
+}
+
+function renderAttendanceCalendar() {
+  document.getElementById('att-month-display').textContent = monthStr(attYear, attMonth);
+  const studentId = document.getElementById('att-student-select').value;
+  const cal = document.getElementById('att-calendar');
+  const stats = document.getElementById('att-stats');
+
+  if (!studentId) {
+    cal.innerHTML = '';
+    stats.innerHTML = '<div class="empty"><div class="empty-icon">📅</div><div class="empty-text">수강생을 선택해주세요</div></div>';
+    return;
+  }
+
+  const key = `att_${studentId}_${attYear}_${attMonth}`;
+  const att = JSON.parse(localStorage.getItem('academy_' + key) || '{}');
+
+  const firstDay = new Date(attYear, attMonth, 1).getDay();
+  const daysInMonth = new Date(attYear, attMonth + 1, 0).getDate();
+  const todayStr = now.toISOString().split('T')[0];
+
+  let cells = '';
+  for (let i = 0; i < firstDay; i++) cells += '<div></div>';
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = `${attYear}-${String(attMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const status = att[dateStr];
+    const isToday = dateStr === todayStr;
+    cells += `<div class="att-day ${status||''} ${isToday?'today':''}" onclick="toggleAtt('${studentId}','${dateStr}')">${d}</div>`;
+  }
+  cal.innerHTML = cells;
+
+  const presentDays = Object.values(att).filter(v => v === 'present').length;
+  const absentDays = Object.values(att).filter(v => v === 'absent').length;
+  const rate = (presentDays + absentDays) ? Math.round(presentDays / (presentDays + absentDays) * 100) : 0;
+
+  stats.innerHTML = `
+    <div class="flex justify-between" style="margin-bottom:14px">
+      <span style="color:var(--text3)">출석일수</span>
+      <span style="color:var(--green); font-weight:700; font-family:'DM Mono',monospace">${presentDays}일</span>
+    </div>
+    <div class="flex justify-between" style="margin-bottom:14px">
+      <span style="color:var(--text3)">결석일수</span>
+      <span style="color:var(--red); font-weight:700; font-family:'DM Mono',monospace">${absentDays}일</span>
+    </div>
+    <div class="flex justify-between" style="margin-bottom:16px">
+      <span style="color:var(--text3)">출석률</span>
+      <span style="color:var(--accent); font-weight:700; font-family:'DM Mono',monospace">${rate}%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width:${rate}%; background:var(--accent)"></div>
+    </div>
+    <div style="font-size:11px; color:var(--text3); margin-top:10px">
+      🟢 클릭 → 출석 &nbsp; 🔴 재클릭 → 결석 &nbsp; 재클릭 → 초기화
+    </div>
+  `;
+}
+
+function toggleAtt(studentId, dateStr) {
+  const key = `att_${studentId}_${attYear}_${attMonth}`;
+  const att = JSON.parse(localStorage.getItem('academy_' + key) || '{}');
+  const cur = att[dateStr];
+  if (!cur) att[dateStr] = 'present';
+  else if (cur === 'present') att[dateStr] = 'absent';
+  else delete att[dateStr];
+  localStorage.setItem('academy_' + key, JSON.stringify(att));
+  renderAttendanceCalendar();
+}
+
+// ========================
+// TUITION
+// ========================
+function changeTuitionMonth(delta) {
+  tuitionMonth += delta;
+  if (tuitionMonth < 0) { tuitionMonth = 11; tuitionYear--; }
+  if (tuitionMonth > 11) { tuitionMonth = 0; tuitionYear++; }
+  renderTuition();
+}
+
+function generateMonthlyTuition() {
+  const monthKey = `${tuitionYear}-${tuitionMonth}`;
+  const students = DB.students().filter(s => s.status === 'active');
+  let tuitions = DB.tuitions();
+  const existing = tuitions.filter(t => t.monthKey === monthKey).map(t => t.studentId);
+  let added = 0;
+  students.forEach(s => {
+    if (!existing.includes(s.id)) {
+      tuitions.push({ id: uid(), studentId: s.id, studentName: s.name, subject: s.subject, fee: s.fee, monthKey, status: 'unpaid', paidAmount: 0, paidDate: '', method: '' });
+      added++;
+    }
+  });
+  DB.setTuitions(tuitions);
+  if (added > 0) alert(`${added}명의 수납표가 생성되었습니다.`);
+  else alert('이미 모든 수강생의 수납표가 있습니다.');
+  renderTuition();
+}
+
+function openTuitionModal(id) {
+  const t = DB.tuitions().find(t => t.id === id);
+  document.getElementById('tuition-edit-id').value = id;
+  document.getElementById('tuition-modal-info').innerHTML = `<strong>${t.studentName}</strong> · ${t.subject} · <span style="color:var(--accent); font-family:'DM Mono',monospace">${fmt(t.fee)}원</span>`;
+  document.getElementById('t-amount').value = t.paidAmount || t.fee;
+  document.getElementById('t-date').value = t.paidDate || now.toISOString().split('T')[0];
+  document.getElementById('t-method').value = t.method || '현금';
+  document.getElementById('t-status').value = t.status;
+  openModal('tuition-modal');
+}
+
+function saveTuition() {
+  const id = document.getElementById('tuition-edit-id').value;
+  const tuitions = DB.tuitions();
+  const idx = tuitions.findIndex(t => t.id === id);
+  const status = document.getElementById('t-status').value;
+  const paidAmount = Number(document.getElementById('t-amount').value);
+  tuitions[idx] = {
+    ...tuitions[idx], status, paidAmount, paidDate: document.getElementById('t-date').value,
+    method: document.getElementById('t-method').value,
+  };
+  DB.setTuitions(tuitions);
+
+  // Auto-add to finances if paid
+  if (status === 'paid' || status === 'partial') {
+    const t = tuitions[idx];
+    const finances = DB.finances();
+    const existKey = `tuition_${id}`;
+    const existIdx = finances.findIndex(f => f.ref === existKey);
+    const entry = { id: uid(), date: t.paidDate, type: 'income', category: '수강료', desc: `${t.studentName} 수강료 (${monthStr(tuitionYear, tuitionMonth)})`, amount: paidAmount, memo: t.method, ref: existKey };
+    if (existIdx >= 0) finances[existIdx] = { ...finances[existIdx], ...entry };
+    else finances.push(entry);
+    DB.setFinances(finances);
+  }
+
+  closeModal('tuition-modal');
+  renderTuition();
+}
+
+function renderTuition() {
+  document.getElementById('tuition-month-display').textContent = monthStr(tuitionYear, tuitionMonth);
+  const monthKey = `${tuitionYear}-${tuitionMonth}`;
+  const tuitions = DB.tuitions().filter(t => t.monthKey === monthKey);
+  const tbody = document.getElementById('tuition-table');
+  const empty = document.getElementById('tuition-empty');
+
+  const paid = tuitions.filter(t => t.status === 'paid');
+  const unpaid = tuitions.filter(t => t.status !== 'paid');
+  const totalAmt = tuitions.reduce((s,t) => s + (t.status !== 'unpaid' ? Number(t.paidAmount||0) : 0), 0);
+  document.getElementById('t-paid-count').textContent = paid.length + '명';
+  document.getElementById('t-unpaid-count').textContent = tuitions.filter(t=>t.status==='unpaid').length + '명';
+  document.getElementById('t-total-amount').textContent = fmt(totalAmt) + '원';
+
+  if (!tuitions.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  tbody.innerHTML = tuitions.map(t => `
+    <tr>
+      <td><strong>${t.studentName}</strong></td>
+      <td style="color:var(--text2)">${t.subject}</td>
+      <td class="amount-neu">${fmt(t.fee)}원</td>
+      <td class="amount-pos">${t.paidAmount ? fmt(t.paidAmount)+'원' : '-'}</td>
+      <td style="font-size:12px; color:var(--text3); font-family:'DM Mono',monospace">${t.paidDate || '-'}</td>
+      <td><span class="badge ${t.status}">${t.status==='paid'?'납부완료':t.status==='partial'?'부분납부':'미납'}</span></td>
+      <td><button class="btn btn-ghost btn-sm" onclick="openTuitionModal('${t.id}')">처리</button></td>
+    </tr>
+  `).join('');
+}
+
+// ========================
+// FINANCE
+// ========================
+const INCOME_CATS = ['수강료','교재비','기타수입'];
+const EXPENSE_CATS = ['임대료','인건비','교재구입','시설/운영','광고/홍보','기타지출'];
+
+function updateFinanceCategories() {
+  const type = document.getElementById('f-type').value;
+  const cats = type === 'income' ? INCOME_CATS : EXPENSE_CATS;
+  document.getElementById('f-category').innerHTML = cats.map(c => `<option>${c}</option>`).join('');
+}
+
+function changeFinanceMonth(delta) {
+  financeMonth += delta;
+  if (financeMonth < 0) { financeMonth = 11; financeYear--; }
+  if (financeMonth > 11) { financeMonth = 0; financeYear++; }
+  renderFinance();
+}
+
+function setFinanceTab(tab) {
+  financeTab = tab;
+  ['all','income','expense'].forEach(t => { document.getElementById(`ftab-${t}`).classList.toggle('active', t === tab); });
+  renderFinance();
+}
+
+function saveFinance() {
+  const date = document.getElementById('f-date').value;
+  const type = document.getElementById('f-type').value;
+  const category = document.getElementById('f-category').value;
+  const amount = Number(document.getElementById('f-amount').value);
+  const desc = document.getElementById('f-desc').value.trim();
+  if (!date || !amount || !desc) { alert('날짜, 금액, 내용을 입력해주세요'); return; }
+
+  const data = { date, type, category, amount, desc, memo: document.getElementById('f-memo').value };
+  const finances = DB.finances();
+  const editId = document.getElementById('finance-edit-id').value;
+  if (editId) {
+    const idx = finances.findIndex(f => f.id === editId);
+    finances[idx] = { ...finances[idx], ...data };
+  } else {
+    finances.push({ id: uid(), ...data });
+  }
+  DB.setFinances(finances);
+  closeModal('finance-modal');
+  renderFinance();
+}
+
+function editFinance(id) {
+  const f = DB.finances().find(f => f.id === id);
+  document.getElementById('finance-modal-title').textContent = '거래 내역 수정';
+  document.getElementById('finance-edit-id').value = id;
+  document.getElementById('f-date').value = f.date;
+  document.getElementById('f-type').value = f.type;
+  updateFinanceCategories();
+  document.getElementById('f-category').value = f.category;
+  document.getElementById('f-amount').value = f.amount;
+  document.getElementById('f-desc').value = f.desc;
+  document.getElementById('f-memo').value = f.memo || '';
+  openModal('finance-modal');
+}
+
+function deleteFinance(id) {
+  if (!confirm('삭제하시겠습니까?')) return;
+  DB.setFinances(DB.finances().filter(f => f.id !== id));
+  renderFinance();
+}
+
+function renderFinance() {
+  document.getElementById('finance-month-display').textContent = monthStr(financeYear, financeMonth);
+  let finances = DB.finances().filter(f => {
+    const d = new Date(f.date);
+    return d.getFullYear() === financeYear && d.getMonth() === financeMonth;
+  });
+
+  const income = finances.filter(f => f.type === 'income').reduce((s,f) => s + Number(f.amount), 0);
+  const expense = finances.filter(f => f.type === 'expense').reduce((s,f) => s + Number(f.amount), 0);
+  const profit = income - expense;
+  document.getElementById('f-income').textContent = fmt(income) + '원';
+  document.getElementById('f-expense').textContent = fmt(expense) + '원';
+  const profEl = document.getElementById('f-profit');
+  profEl.textContent = fmt(Math.abs(profit)) + '원';
+  profEl.style.color = profit >= 0 ? 'var(--accent)' : 'var(--red)';
+
+  if (financeTab !== 'all') finances = finances.filter(f => f.type === financeTab);
+  finances.sort((a,b) => new Date(b.date) - new Date(a.date));
+
+  const tbody = document.getElementById('finance-table');
+  const empty = document.getElementById('finance-empty');
+  if (!finances.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = finances.map(f => `
+    <tr>
+      <td style="font-size:12px; font-family:'DM Mono',monospace; color:var(--text3)">${f.date}</td>
+      <td><span class="badge ${f.type==='income'?'paid':'unpaid'}">${f.type==='income'?'매출':'지출'}</span></td>
+      <td style="color:var(--text2)">${f.category}</td>
+      <td>${f.desc}</td>
+      <td class="text-right ${f.type==='income'?'amount-pos':'amount-neg'}">${f.type==='income'?'+':'-'}${fmt(f.amount)}</td>
+      <td style="color:var(--text3); font-size:12px">${f.memo||'-'}</td>
+      <td>
+        <div class="flex gap-2">
+          <button class="btn btn-ghost btn-sm" onclick="editFinance('${f.id}')">수정</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteFinance('${f.id}')">삭제</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+// ========================
+// PRINT SYSTEM
+// ========================
+let printOpts = { students: true, tuition: true, attendance: true, finance: true };
+let printFormat = 'clean';
+
+function togglePrintOpt(key) {
+  printOpts[key] = !printOpts[key];
+  document.getElementById('popt-' + key).classList.toggle('selected', printOpts[key]);
+}
+function setPrintFormat(fmt) {
+  printFormat = fmt;
+  document.getElementById('pfmt-clean').classList.toggle('selected', fmt === 'clean');
+  document.getElementById('pfmt-screen').classList.toggle('selected', fmt === 'screen');
+}
+
+function doPrint() {
+  closeModal('print-modal');
+  if (printFormat === 'screen') {
+    window.print();
+    return;
+  }
+  // Build clean print document
+  const printArea = document.getElementById('print-area');
+  printArea.style.display = 'block';
+  const printDate = now.toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' });
+  let html = `<div class="pdoc">`;
+
+  // --- STUDENTS ---
+  if (printOpts.students) {
+    const students = DB.students();
+    const active = students.filter(s => s.status === 'active');
+    const inactive = students.filter(s => s.status === 'inactive');
+    html += `
+      <div class="pdoc-header">
+        <div>
+          <div class="pdoc-title">수강생 명단</div>
+        </div>
+        <div class="pdoc-meta">출력일: ${printDate}<br>총 ${students.length}명 (수강중 ${active.length}명 / 중단 ${inactive.length}명)</div>
+      </div>
+      <div class="pdoc-summary">
+        <div class="pdoc-stat"><div class="pdoc-stat-label">전체</div><div class="pdoc-stat-value">${students.length}명</div></div>
+        <div class="pdoc-stat"><div class="pdoc-stat-label">수강중</div><div class="pdoc-stat-value" style="color:#065f46">${active.length}명</div></div>
+        <div class="pdoc-stat"><div class="pdoc-stat-label">중단</div><div class="pdoc-stat-value" style="color:#991b1b">${inactive.length}명</div></div>
+      </div>
+      <table>
+        <thead><tr>
+          <th>#</th><th>이름</th><th>연락처</th><th>보호자</th><th>수강 과목</th><th>월 수강료</th><th>등록일</th><th>상태</th>
+        </tr></thead>
+        <tbody>
+          ${students.map((s,i) => `<tr>
+            <td>${i+1}</td>
+            <td><strong>${s.name}</strong></td>
+            <td>${s.phone||'-'}</td>
+            <td>${s.parentPhone||'-'}</td>
+            <td>${s.subject}</td>
+            <td style="text-align:right">${fmt(s.fee)}원</td>
+            <td>${s.enroll}</td>
+            <td><span class="tag ${s.status==='active'?'tag-paid':'tag-unpaid'}">${s.status==='active'?'수강중':'중단'}</span></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="pdoc-footer"><span>공부방 통합관리 시스템</span><span>${printDate} 출력</span></div>
+    `;
+  }
+
+  // --- TUITION ---
+  if (printOpts.tuition) {
+    if (printOpts.students) html += `<div class="pdoc-pagebreak"></div><div class="pdoc">`;
+    const monthKey = `${tuitionYear}-${tuitionMonth}`;
+    const tuitions = DB.tuitions().filter(t => t.monthKey === monthKey);
+    const paid = tuitions.filter(t => t.status === 'paid');
+    const unpaid = tuitions.filter(t => t.status === 'unpaid');
+    const partial = tuitions.filter(t => t.status === 'partial');
+    const totalAmt = tuitions.reduce((s,t) => s + (t.status!=='unpaid'?Number(t.paidAmount||0):0), 0);
+    html += `
+      <div class="pdoc-header">
+        <div><div class="pdoc-title">수강료 수납 현황표</div><div style="font-size:13px;color:#666;margin-top:4px">${monthStr(tuitionYear,tuitionMonth)}</div></div>
+        <div class="pdoc-meta">출력일: ${printDate}<br>총 ${tuitions.length}명</div>
+      </div>
+      <div class="pdoc-summary">
+        <div class="pdoc-stat"><div class="pdoc-stat-label">납부 완료</div><div class="pdoc-stat-value" style="color:#065f46">${paid.length}명</div></div>
+        <div class="pdoc-stat"><div class="pdoc-stat-label">미납</div><div class="pdoc-stat-value" style="color:#991b1b">${unpaid.length}명</div></div>
+        <div class="pdoc-stat"><div class="pdoc-stat-label">총 수납액</div><div class="pdoc-stat-value">${fmt(totalAmt)}원</div></div>
+      </div>
+      <table>
+        <thead><tr><th>#</th><th>수강생</th><th>수강 과목</th><th>수강료</th><th>납부액</th><th>납부일</th><th>납부방법</th><th>상태</th></tr></thead>
+        <tbody>
+          ${tuitions.map((t,i) => `<tr>
+            <td>${i+1}</td>
+            <td><strong>${t.studentName}</strong></td>
+            <td>${t.subject}</td>
+            <td style="text-align:right">${fmt(t.fee)}원</td>
+            <td style="text-align:right">${t.paidAmount?fmt(t.paidAmount)+'원':'-'}</td>
+            <td>${t.paidDate||'-'}</td>
+            <td>${t.method||'-'}</td>
+            <td><span class="tag tag-${t.status}">${t.status==='paid'?'납부완료':t.status==='partial'?'부분납부':'미납'}</span></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="pdoc-footer"><span>공부방 통합관리 시스템</span><span>${printDate} 출력</span></div>
+    `;
+    if (printOpts.students) html += `</div>`;
+  }
+
+  // --- ATTENDANCE ---
+  if (printOpts.attendance) {
+    const prevSections = printOpts.students || printOpts.tuition;
+    if (prevSections) html += `<div class="pdoc-pagebreak"></div><div class="pdoc">`;
+    const studentId = document.getElementById('att-student-select').value;
+    const students = DB.students().filter(s => s.status === 'active');
+
+    const renderStudentAtt = (sid) => {
+      const student = DB.students().find(s => s.id === sid);
+      if (!student) return '';
+      const key = `att_${sid}_${attYear}_${attMonth}`;
+      const att = JSON.parse(localStorage.getItem('academy_' + key) || '{}');
+      const firstDay = new Date(attYear, attMonth, 1).getDay();
+      const daysInMonth = new Date(attYear, attMonth + 1, 0).getDate();
+      const presentDays = Object.values(att).filter(v => v === 'present').length;
+      const absentDays = Object.values(att).filter(v => v === 'absent').length;
+      const rate = (presentDays+absentDays) ? Math.round(presentDays/(presentDays+absentDays)*100) : 0;
+
+      let calHtml = `<div class="pdoc-att-grid">`;
+      ['일','월','화','수','목','금','토'].forEach(d => { calHtml += `<div class="pdoc-att-day header">${d}</div>`; });
+      for (let i = 0; i < firstDay; i++) calHtml += `<div class="pdoc-att-day empty"></div>`;
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = `${attYear}-${String(attMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const status = att[dateStr];
+        calHtml += `<div class="pdoc-att-day ${status||''}">${d}${status==='present'?'✓':status==='absent'?'✗':''}</div>`;
+      }
+      calHtml += `</div>`;
+
+      return `
+        <div style="margin-bottom:24px; padding-bottom:20px; border-bottom:1px solid #eee">
+          <div class="pdoc-section-title">${student.name} (${student.subject})</div>
+          <div style="display:flex; gap:20px; margin-bottom:12px; font-size:12px; color:#666">
+            <span>출석 <strong style="color:#065f46">${presentDays}일</strong></span>
+            <span>결석 <strong style="color:#991b1b">${absentDays}일</strong></span>
+            <span>출석률 <strong>${rate}%</strong></span>
+          </div>
+          ${calHtml}
+        </div>
+      `;
+    };
+
+    const targetStudents = studentId ? [studentId] : students.map(s => s.id);
+    html += `
+      <div class="pdoc-header">
+        <div><div class="pdoc-title">출결 현황표</div><div style="font-size:13px;color:#666;margin-top:4px">${monthStr(attYear,attMonth)}</div></div>
+        <div class="pdoc-meta">출력일: ${printDate}<br>${studentId ? '선택 수강생 1명' : `전체 ${targetStudents.length}명`}</div>
+      </div>
+      ${targetStudents.map(sid => renderStudentAtt(sid)).join('')}
+      <div class="pdoc-footer"><span>공부방 통합관리 시스템</span><span>${printDate} 출력</span></div>
+    `;
+    if (prevSections) html += `</div>`;
+  }
+
+  // --- FINANCE ---
+  if (printOpts.finance) {
+    const prevSections = printOpts.students || printOpts.tuition || printOpts.attendance;
+    if (prevSections) html += `<div class="pdoc-pagebreak"></div><div class="pdoc">`;
+    let finances = DB.finances().filter(f => {
+      const d = new Date(f.date);
+      return d.getFullYear() === financeYear && d.getMonth() === financeMonth;
+    }).sort((a,b) => new Date(a.date)-new Date(b.date));
+    const income = finances.filter(f => f.type==='income').reduce((s,f) => s+Number(f.amount), 0);
+    const expense = finances.filter(f => f.type==='expense').reduce((s,f) => s+Number(f.amount), 0);
+    const profit = income - expense;
+    html += `
+      <div class="pdoc-header">
+        <div><div class="pdoc-title">매출 / 지출 장부</div><div style="font-size:13px;color:#666;margin-top:4px">${monthStr(financeYear,financeMonth)}</div></div>
+        <div class="pdoc-meta">출력일: ${printDate}<br>총 ${finances.length}건</div>
+      </div>
+      <div class="pdoc-summary">
+        <div class="pdoc-stat"><div class="pdoc-stat-label">총 매출</div><div class="pdoc-stat-value" style="color:#065f46">${fmt(income)}원</div></div>
+        <div class="pdoc-stat"><div class="pdoc-stat-label">총 지출</div><div class="pdoc-stat-value" style="color:#991b1b">${fmt(expense)}원</div></div>
+        <div class="pdoc-stat"><div class="pdoc-stat-label">순이익</div><div class="pdoc-stat-value" style="color:${profit>=0?'#065f46':'#991b1b'}">${profit>=0?'+':''}${fmt(profit)}원</div></div>
+      </div>
+      <table>
+        <thead><tr><th>#</th><th>날짜</th><th>구분</th><th>카테고리</th><th>내용</th><th style="text-align:right">금액</th><th>메모</th></tr></thead>
+        <tbody>
+          ${finances.map((f,i) => `<tr>
+            <td>${i+1}</td>
+            <td>${f.date}</td>
+            <td><span class="tag tag-${f.type}">${f.type==='income'?'매출':'지출'}</span></td>
+            <td>${f.category}</td>
+            <td>${f.desc}</td>
+            <td style="text-align:right;font-weight:600;color:${f.type==='income'?'#065f46':'#991b1b'}">${f.type==='income'?'+':'-'}${fmt(f.amount)}</td>
+            <td>${f.memo||'-'}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+      <div style="text-align:right; font-size:13px; font-weight:700; padding:8px 10px; border-top:2px solid #111">
+        순이익: <span style="color:${profit>=0?'#065f46':'#991b1b'}">${profit>=0?'+':''}${fmt(profit)}원</span>
+      </div>
+      <div class="pdoc-footer"><span>공부방 통합관리 시스템</span><span>${printDate} 출력</span></div>
+    `;
+    if (prevSections) html += `</div>`;
+  }
+
+  html += `</div>`;
+  printArea.innerHTML = html;
+
+  setTimeout(() => {
+    window.print();
+    setTimeout(() => { printArea.style.display = 'none'; printArea.innerHTML = ''; }, 500);
+  }, 100);
+}
+
+// ========================
+// MOBILE NAV
+// ========================
+function toggleMobileMore() {
+  document.getElementById('mobile-more-panel').classList.toggle('open');
+}
+function closeMobileMore() {
+  document.getElementById('mobile-more-panel').classList.remove('open');
+}
+
+// ========================
+// BACKUP / RESTORE
+// ========================
+DB.grades = () => DB.get('grades');
+DB.classes = () => DB.get('classes');
+DB.setGrades = (d) => DB.set('grades', d);
+DB.setClasses = (d) => DB.set('classes', d);
+
+function doBackup() {
+  const data = { version: 2, exportedAt: new Date().toISOString(), students: DB.students(), tuitions: DB.tuitions(), finances: DB.finances(), grades: DB.grades(), classes: DB.classes(), attendance: {} };
+  DB.students().forEach(s => {
+    for (let y = now.getFullYear() - 1; y <= now.getFullYear() + 1; y++) {
+      for (let m = 0; m < 12; m++) {
+        const key = `att_${s.id}_${y}_${m}`;
+        const val = localStorage.getItem('academy_' + key);
+        if (val) data.attendance[key] = JSON.parse(val);
+      }
+    }
+  });
+  const filename = `공부방백업_${now.toISOString().split('T')[0]}.json`;
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+  const hist = JSON.parse(localStorage.getItem('academy_backup_history') || '[]');
+  hist.unshift({ date: new Date().toLocaleString('ko-KR'), filename });
+  if (hist.length > 5) hist.pop();
+  localStorage.setItem('academy_backup_history', JSON.stringify(hist));
+  renderBackupHistory();
+  alert('✅ 백업 완료: ' + filename);
+}
+
+function doRestore(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (!confirm('⚠️ 현재 모든 데이터가 덮어쓰기됩니다.\n계속하시겠습니까?')) { event.target.value=''; return; }
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!data.students) throw new Error('올바른 백업 파일이 아닙니다.');
+      DB.setStudents(data.students || []); DB.setTuitions(data.tuitions || []);
+      DB.setFinances(data.finances || []); DB.setGrades(data.grades || []);
+      DB.setClasses(data.classes || []);
+      if (data.attendance) Object.entries(data.attendance).forEach(([k,v]) => localStorage.setItem('academy_'+k, JSON.stringify(v)));
+      alert('✅ 복원 완료! 새로고침합니다.'); location.reload();
+    } catch(err) { alert('❌ 복원 실패: ' + err.message); }
+  };
+  reader.readAsText(file); event.target.value = '';
+}
+
+function renderBackupHistory() {
+  const hist = JSON.parse(localStorage.getItem('academy_backup_history') || '[]');
+  const el = document.getElementById('backup-history');
+  if (!hist.length) { el.innerHTML = '<div style="color:var(--text3); font-size:12px; padding:8px 0">백업 이력 없음</div>'; return; }
+  el.innerHTML = hist.map(h => `<div class="backup-history-item"><span style="color:var(--text2)">${h.date}</span><span style="color:var(--text3); font-size:11px">${h.filename}</span></div>`).join('');
+}
+
+// Extend openModal for new modals
+const _baseOpenModal = openModal;
+openModal = function(id) {
+  _baseOpenModal(id);
+  if (id === 'backup-modal') renderBackupHistory();
+  if (id === 'class-modal') {
+    if (!document.getElementById('class-edit-id').value) {
+      ['cl-name','cl-subject','cl-days','cl-time','cl-memo'].forEach(i => document.getElementById(i).value = '');
+      renderClassStudentPicker('');
+    }
+    draftLoad('class-modal');
+  }
+  if (id === 'grade-modal') {
+    if (!document.getElementById('grade-edit-id').value) {
+      ['gr-subject','gr-exam','gr-memo'].forEach(i => document.getElementById(i).value = '');
+      document.getElementById('gr-score').value = ''; document.getElementById('gr-total').value = 100;
+      document.getElementById('gr-date').value = now.toISOString().split('T')[0];
+      document.getElementById('gr-student').innerHTML = DB.students().filter(s=>s.status==='active').map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
+    }
+    draftLoad('grade-modal');
+  }
+  if (id === 'student-modal') draftLoad('student-modal');
+  if (id === 'finance-modal') draftLoad('finance-modal');
+};
+
+// ========================
+// CLASSES
+// ========================
+function renderClassStudentPicker(editId) {
+  const students = DB.students().filter(s => s.status === 'active');
+  const cls = editId ? DB.classes().find(c => c.id === editId) : null;
+  const selected = cls ? (cls.members || []) : [];
+  document.getElementById('cl-student-list').innerHTML = students.length ? students.map(s => `
+    <label style="display:inline-flex; align-items:center; gap:5px; cursor:pointer; font-size:12px; color:var(--text2); padding:4px 8px; border:1px solid var(--border); border-radius:6px; background:var(--surface2)">
+      <input type="checkbox" value="${s.id}" ${selected.includes(s.id)?'checked':''} style="display:inline; width:auto"> ${s.name}
+    </label>`).join('') : '<span style="color:var(--text3); font-size:12px">등록된 수강생이 없습니다</span>';
+}
+function saveClass() {
+  const name = document.getElementById('cl-name').value.trim();
+  if (!name) { alert('반 이름을 입력해주세요'); return; }
+  const members = [...document.querySelectorAll('#cl-student-list input:checked')].map(i => i.value);
+  const data = { name, subject: document.getElementById('cl-subject').value, days: document.getElementById('cl-days').value, time: document.getElementById('cl-time').value, memo: document.getElementById('cl-memo').value, members };
+  const classes = DB.classes();
+  const editId = document.getElementById('class-edit-id').value;
+  if (editId) { const idx = classes.findIndex(c => c.id === editId); classes[idx] = { ...classes[idx], ...data }; }
+  else classes.push({ id: uid(), ...data });
+  DB.setClasses(classes); closeModal('class-modal'); renderClasses();
+}
+function editClass(id) {
+  const c = DB.classes().find(c => c.id === id);
+  document.getElementById('class-modal-title').textContent = '반 수정';
+  document.getElementById('class-edit-id').value = id;
+  document.getElementById('cl-name').value = c.name; document.getElementById('cl-subject').value = c.subject||'';
+  document.getElementById('cl-days').value = c.days||''; document.getElementById('cl-time').value = c.time||'';
+  document.getElementById('cl-memo').value = c.memo||'';
+  _baseOpenModal('class-modal'); renderClassStudentPicker(id);
+}
+function deleteClass(id) {
+  if (!confirm('반을 삭제하시겠습니까?')) return;
+  DB.setClasses(DB.classes().filter(c => c.id !== id)); renderClasses();
+}
+function renderClasses() {
+  const classes = DB.classes(); const students = DB.students();
+  const grid = document.getElementById('class-grid'); const empty = document.getElementById('class-empty');
+  if (!classes.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  grid.innerHTML = classes.map(c => {
+    const members = (c.members||[]).map(id => students.find(s=>s.id===id)).filter(Boolean);
+    return `<div class="class-card">
+      <div class="flex justify-between items-center" style="margin-bottom:12px">
+        <div style="font-size:15px; font-weight:700">${c.name}</div>
+        <div class="flex gap-2">
+          <button class="btn btn-ghost btn-sm" onclick="editClass('${c.id}')">수정</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteClass('${c.id}')">삭제</button>
+        </div>
+      </div>
+      ${c.subject?`<div style="font-size:12px; color:var(--text3); margin-bottom:4px">📚 ${c.subject}</div>`:''}
+      ${c.days?`<div style="font-size:12px; color:var(--text3); margin-bottom:8px">📅 ${c.days} ${c.time||''}</div>`:''}
+      <div>${members.length?members.map(s=>`<span class="class-member-chip">${s.name}</span>`).join(''):'<span style="font-size:12px; color:var(--text3)">수강생 없음</span>'}</div>
+      ${c.memo?`<div style="font-size:11px; color:var(--text3); margin-top:8px; padding-top:8px; border-top:1px solid var(--border)">${c.memo}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+// ========================
+// GRADES
+// ========================
+function gradeLabel(score, total) {
+  const pct = score / total * 100;
+  if (pct >= 90) return { label:'A', color:'var(--green)' };
+  if (pct >= 80) return { label:'B', color:'var(--accent)' };
+  if (pct >= 70) return { label:'C', color:'var(--accent3)' };
+  if (pct >= 60) return { label:'D', color:'var(--accent2)' };
+  return { label:'F', color:'var(--red)' };
+}
+function saveGrade() {
+  const studentId = document.getElementById('gr-student').value;
+  const date = document.getElementById('gr-date').value;
+  const subject = document.getElementById('gr-subject').value.trim();
+  const exam = document.getElementById('gr-exam').value.trim();
+  const score = Number(document.getElementById('gr-score').value);
+  const total = Number(document.getElementById('gr-total').value) || 100;
+  if (!studentId||!date||!subject||!exam||isNaN(score)) { alert('필수 항목을 모두 입력해주세요'); return; }
+  const student = DB.students().find(s => s.id === studentId);
+  const data = { studentId, studentName: student.name, date, subject, exam, score, total, memo: document.getElementById('gr-memo').value };
+  const grades = DB.grades(); const editId = document.getElementById('grade-edit-id').value;
+  if (editId) { const idx = grades.findIndex(g => g.id === editId); grades[idx] = { ...grades[idx], ...data }; }
+  else grades.push({ id: uid(), ...data });
+  DB.setGrades(grades); closeModal('grade-modal'); renderGrades();
+}
+function editGrade(id) {
+  const g = DB.grades().find(g => g.id === id);
+  document.getElementById('grade-modal-title').textContent = '성적 수정';
+  document.getElementById('grade-edit-id').value = id;
+  document.getElementById('gr-student').innerHTML = DB.students().filter(s=>s.status==='active').map(s=>`<option value="${s.id}" ${s.id===g.studentId?'selected':''}>${s.name}</option>`).join('');
+  document.getElementById('gr-date').value = g.date; document.getElementById('gr-subject').value = g.subject;
+  document.getElementById('gr-exam').value = g.exam; document.getElementById('gr-score').value = g.score;
+  document.getElementById('gr-total').value = g.total; document.getElementById('gr-memo').value = g.memo||'';
+  _baseOpenModal('grade-modal');
+}
+function deleteGrade(id) {
+  if (!confirm('삭제하시겠습니까?')) return;
+  DB.setGrades(DB.grades().filter(g => g.id !== id)); renderGrades();
+}
+function renderGrades() {
+  const students = DB.students();
+  const ssel = document.getElementById('grade-student-filter'); const curS = ssel.value;
+  ssel.innerHTML = '<option value="">전체 수강생</option>' + students.map(s=>`<option value="${s.id}" ${s.id===curS?'selected':''}>${s.name}</option>`).join('');
+  let grades = DB.grades();
+  const subjects = [...new Set(grades.map(g => g.subject))];
+  const subSel = document.getElementById('grade-subject-filter'); const curSub = subSel.value;
+  subSel.innerHTML = '<option value="">전체 과목</option>' + subjects.map(s=>`<option value="${s}" ${s===curSub?'selected':''}>${s}</option>`).join('');
+  const sf = ssel.value; const subf = subSel.value;
+  const search = document.getElementById('grade-search').value.toLowerCase();
+  if (sf) grades = grades.filter(g => g.studentId === sf);
+  if (subf) grades = grades.filter(g => g.subject === subf);
+  if (search) grades = grades.filter(g => g.exam.toLowerCase().includes(search));
+  grades.sort((a,b) => new Date(b.date)-new Date(a.date));
+  const tbody = document.getElementById('grade-table'); const empty = document.getElementById('grade-empty');
+  if (!grades.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  tbody.innerHTML = grades.map(g => {
+    const gl = gradeLabel(g.score, g.total); const pct = Math.round(g.score/g.total*100);
+    return `<tr>
+      <td style="font-size:11px; color:var(--text3); font-family:'DM Mono',monospace">${g.date}</td>
+      <td><strong>${g.studentName}</strong></td><td style="color:var(--text2)">${g.subject}</td>
+      <td>${g.exam}</td>
+      <td style="font-family:'DM Mono',monospace; font-weight:600">${g.score}/${g.total} <span style="font-size:11px; color:var(--text3)">(${pct}%)</span></td>
+      <td><span style="font-weight:900; color:${gl.color}; font-size:16px; font-family:'DM Mono',monospace">${gl.label}</span></td>
+      <td style="font-size:12px; color:var(--text3)">${g.memo||'-'}</td>
+      <td><div class="flex gap-2">
+        <button class="btn btn-ghost btn-sm" onclick="editGrade('${g.id}')">수정</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteGrade('${g.id}')">삭제</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+// ========================
+// FORM AUTOSAVE
+// ========================
+const DRAFT_KEY = 'academy_draft_';
+let autosaveTimers = {};
+
+// 필드 목록 정의
+const FORM_DRAFTS = {
+  'student-modal': ['s-name','s-phone','s-parent-phone','s-birth','s-subject','s-fee','s-enroll','s-status','s-memo'],
+  'finance-modal': ['f-date','f-type','f-category','f-amount','f-desc','f-memo'],
+  'grade-modal':   ['gr-student','gr-date','gr-subject','gr-exam','gr-score','gr-total','gr-memo'],
+  'class-modal':   ['cl-name','cl-subject','cl-days','cl-time','cl-memo'],
+};
+
+function draftSave(modalId) {
+  // 수정 중(editId 있음)이면 임시저장 안 함
+  const editMap = { 'student-modal':'student-edit-id', 'finance-modal':'finance-edit-id', 'grade-modal':'grade-edit-id', 'class-modal':'class-edit-id' };
+  const editEl = document.getElementById(editMap[modalId]);
+  if (editEl && editEl.value) return; // 수정 모드면 스킵
+
+  const fields = FORM_DRAFTS[modalId];
+  if (!fields) return;
+  const data = {};
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) data[id] = el.value;
+  });
+  localStorage.setItem(DRAFT_KEY + modalId, JSON.stringify(data));
+
+  // 뱃지 표시
+  const badge = document.getElementById('as-' + modalId);
+  if (badge) {
+    badge.classList.add('show');
+    clearTimeout(autosaveTimers[modalId]);
+    autosaveTimers[modalId] = setTimeout(() => badge.classList.remove('show'), 2000);
+  }
+}
+
+function draftLoad(modalId) {
+  const editMap = { 'student-modal':'student-edit-id', 'finance-modal':'finance-edit-id', 'grade-modal':'grade-edit-id', 'class-modal':'class-edit-id' };
+  const editEl = document.getElementById(editMap[modalId]);
+  if (editEl && editEl.value) return; // 수정 모드면 복원 안 함
+
+  const raw = localStorage.getItem(DRAFT_KEY + modalId);
+  if (!raw) return;
+  const data = JSON.parse(raw);
+  const fields = FORM_DRAFTS[modalId];
+  if (!fields) return;
+  let hasData = false;
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && data[id] !== undefined && data[id] !== '') {
+      el.value = data[id];
+      hasData = true;
+    }
+  });
+  // finance modal - category 재동기화
+  if (modalId === 'finance-modal' && data['f-type']) {
+    updateFinanceCategories();
+    if (data['f-category']) {
+      setTimeout(() => { const el = document.getElementById('f-category'); if (el) el.value = data['f-category']; }, 10);
+    }
+  }
+  if (hasData) {
+    const badge = document.getElementById('as-' + modalId);
+    if (badge) { badge.classList.add('show'); setTimeout(() => badge.classList.remove('show'), 3000); }
+  }
+}
+
+function draftClear(modalId) {
+  localStorage.removeItem(DRAFT_KEY + modalId);
+}
+
+function bindAutosave(modalId) {
+  const fields = FORM_DRAFTS[modalId];
+  if (!fields) return;
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const evt = (el.tagName === 'SELECT' || el.type === 'date') ? 'change' : 'input';
+    el.addEventListener(evt, () => draftSave(modalId));
+  });
+}
+
+// 저장 성공 시 임시저장 클리어 (기존 save 함수 래핑)
+const _origSaveStudent = saveStudent;
+saveStudent = function() {
+  const name = document.getElementById('s-name').value.trim();
+  if (!name) { alert('필수 항목을 입력해주세요 (이름, 수강 과목, 수강료, 등록일)'); return; }
+  _origSaveStudent();
+  draftClear('student-modal');
+};
+
+const _origSaveFinance = saveFinance;
+saveFinance = function() {
+  _origSaveFinance();
+  draftClear('finance-modal');
+};
+
+const _origSaveGrade = saveGrade;
+saveGrade = function() {
+  _origSaveGrade();
+  draftClear('grade-modal');
+};
+
+const _origSaveClass = saveClass;
+saveClass = function() {
+  _origSaveClass();
+  draftClear('class-modal');
+};
+
+// closeModal 시 새 등록이면 draft 유지 (닫아도 나중에 복원)
+// 단, X 버튼 누를 때 confirm 없이 그냥 닫기 (draft는 localStorage에 남아있음)
+
+// ========================
+// GOOGLE SHEETS SYNC
+// ========================
+function getGsheetUrl() {
+  return localStorage.getItem('academy_gsheet_url') || '';
+}
+function saveGsheetUrl() {
+  const url = document.getElementById('set-gsheet-url').value.trim();
+  const auto = document.getElementById('set-gsync-auto').checked;
+  localStorage.setItem('academy_gsheet_url', url);
+  localStorage.setItem('academy_gsync_auto', auto ? '1' : '0');
+}
+function loadGsheetSettings() {
+  const url = getGsheetUrl();
+  const auto = localStorage.getItem('academy_gsync_auto') === '1';
+  const el = document.getElementById('set-gsheet-url');
+  const autoEl = document.getElementById('set-gsync-auto');
+  if (el) el.value = url;
+  if (autoEl) autoEl.checked = auto;
+  const last = localStorage.getItem('academy_gsync_last');
+  const lastEl = document.getElementById('gsync-last-time');
+  if (lastEl) lastEl.textContent = last || '-';
+}
+
+function gsheetStatus(msg, type) {
+  const el = document.getElementById('gsync-status');
+  if (!el) return;
+  el.style.display = 'block';
+  const colors = {
+    ok:      { bg: 'rgba(74,222,128,0.1)',  border: 'rgba(74,222,128,0.3)',  color: 'var(--green)' },
+    error:   { bg: 'rgba(248,113,113,0.1)', border: 'rgba(248,113,113,0.3)', color: 'var(--red)' },
+    loading: { bg: 'rgba(96,165,250,0.1)',  border: 'rgba(96,165,250,0.3)',  color: 'var(--blue)' },
+  };
+  const c = colors[type] || colors.loading;
+  el.style.background = c.bg;
+  el.style.border = '1px solid ' + c.border;
+  el.style.color = c.color;
+  el.textContent = msg;
+}
+
+async function gsheetPing() {
+  const url = getGsheetUrl();
+  if (!url) { gsheetStatus('❌ URL을 먼저 입력해주세요', 'error'); return; }
+  gsheetStatus('🔄 연결 테스트 중...', 'loading');
+  try {
+    const res = await fetch(url + '?action=ping');
+    const json = await res.json();
+    if (json.ok) {
+      gsheetStatus('✅ 연결 성공! 구글 시트와 정상 연결됐습니다', 'ok');
+    } else {
+      gsheetStatus('❌ 연결 실패: ' + (json.error || '알 수 없는 오류'), 'error');
+    }
+  } catch(e) {
+    gsheetStatus('❌ 연결 실패 — URL을 확인하거나 배포 설정을 확인해주세요', 'error');
+  }
+}
+
+async function gsheetPush(silent = false) {
+  const url = getGsheetUrl();
+  if (!url) {
+    if (!silent) gsheetStatus('❌ URL을 먼저 입력해주세요', 'error');
+    return false;
+  }
+  if (!silent) gsheetStatus('⬆️ 구글 시트로 저장 중...', 'loading');
+
+  // 출결 데이터 수집
+  const attendance = {};
+  DB.students().forEach(s => {
+    for (let y = now.getFullYear() - 1; y <= now.getFullYear() + 1; y++) {
+      for (let m = 0; m < 12; m++) {
+        const key = `att_${s.id}_${y}_${m}`;
+        const val = localStorage.getItem('academy_' + key);
+        if (val) attendance[key] = JSON.parse(val);
+      }
+    }
+  });
+  // 출결을 flat array로 변환
+  const attFlat = [];
+  Object.entries(attendance).forEach(([key, days]) => {
+    Object.entries(days).forEach(([date, status]) => {
+      const parts = key.split('_');
+      attFlat.push({ key, studentId: parts[1], year: parts[2], month: parts[3], date, status });
+    });
+  });
+
+  const payload = {
+    action: 'writeAll',
+    data: {
+      students:  DB.students(),
+      tuitions:  DB.tuitions(),
+      finances:  DB.finances(),
+      grades:    DB.grades(),
+      classes:   DB.classes(),
+      attendance: attFlat,
+    }
+  };
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+    const json = await res.json();
+    if (json.ok) {
+      const t = new Date().toLocaleString('ko-KR');
+      localStorage.setItem('academy_gsync_last', t);
+      const lastEl = document.getElementById('gsync-last-time');
+      if (lastEl) lastEl.textContent = t;
+      if (!silent) gsheetStatus('✅ 저장 완료! 구글 시트에 반영됐습니다 (' + t + ')', 'ok');
+      return true;
+    } else {
+      if (!silent) gsheetStatus('❌ 저장 실패: ' + (json.error || '오류'), 'error');
+      return false;
+    }
+  } catch(e) {
+    if (!silent) gsheetStatus('❌ 저장 실패 — 인터넷 연결을 확인해주세요', 'error');
+    return false;
+  }
+}
+
+async function gsheetPull() {
+  const url = getGsheetUrl();
+  if (!url) { gsheetStatus('❌ URL을 먼저 입력해주세요', 'error'); return; }
+  if (!confirm('⚠️ 구글 시트의 데이터로 현재 데이터를 덮어씁니다.\n계속하시겠습니까?')) return;
+  gsheetStatus('⬇️ 구글 시트에서 불러오는 중...', 'loading');
+  try {
+    const res = await fetch(url + '?action=readAll');
+    const json = await res.json();
+    if (!json.ok) { gsheetStatus('❌ 불러오기 실패: ' + (json.error||'오류'), 'error'); return; }
+    const d = json.data;
+    if (d.students)  DB.setStudents(d.students);
+    if (d.tuitions)  DB.setTuitions(d.tuitions);
+    if (d.finances)  DB.setFinances(d.finances);
+    if (d.grades)    DB.setGrades(d.grades);
+    if (d.classes)   DB.setClasses(d.classes);
+    // 출결 복원
+    if (d.attendance && Array.isArray(d.attendance)) {
+      const grouped = {};
+      d.attendance.forEach(r => {
+        if (!grouped[r.key]) grouped[r.key] = {};
+        grouped[r.key][r.date] = r.status;
+      });
+      Object.entries(grouped).forEach(([k,v]) => localStorage.setItem('academy_'+k, JSON.stringify(v)));
+    }
+    gsheetStatus('✅ 불러오기 완료! 페이지를 새로고침합니다', 'ok');
+    setTimeout(() => location.reload(), 1500);
+  } catch(e) {
+    gsheetStatus('❌ 불러오기 실패 — 인터넷 연결을 확인해주세요', 'error');
+  }
+}
+
+// 자동 동기화 — DB.set 래핑
+const _origDBset = DB.set.bind(DB);
+DB.set = function(key, val) {
+  _origDBset(key, val);
+  if (localStorage.getItem('academy_gsync_auto') === '1') {
+    clearTimeout(DB._syncTimer);
+    DB._syncTimer = setTimeout(() => gsheetPush(true), 2000); // 2초 디바운스
+  }
+};
+
+// ========================
+// SETTINGS
+// ========================
+function getSettings() {
+  return JSON.parse(localStorage.getItem('academy_settings') || '{}');
+}
+function saveSettings() {
+  const s = {
+    academyName: document.getElementById('set-academy-name').value,
+    directorName: document.getElementById('set-director-name').value,
+    phone: document.getElementById('set-academy-phone').value,
+    addr: document.getElementById('set-academy-addr').value,
+  };
+  localStorage.setItem('academy_settings', JSON.stringify(s));
+  applySettings(s);
+}
+function applySettings(s) {
+  if (!s) s = getSettings();
+  const name = s.academyName || '공부방 관리';
+  // sidebar logo
+  const logoEl = document.getElementById('sidebar-academy-name');
+  if (logoEl) logoEl.textContent = s.academyName ? s.academyName + ' · v2.1' : 'STUDY ROOM MANAGER v2.1';
+  // dashboard title
+  const dtEl = document.getElementById('dash-academy-title');
+  if (dtEl) dtEl.textContent = name;
+  // data size
+  const dsEl = document.getElementById('set-data-size');
+  if (dsEl) {
+    let total = 0;
+    for (let k in localStorage) { if (k.startsWith('academy_')) total += (localStorage[k]||'').length; }
+    dsEl.textContent = (total / 1024).toFixed(1) + ' KB 사용 중';
+  }
+}
+function loadSettingsPage() {
+  const s = getSettings();
+  document.getElementById('set-academy-name').value = s.academyName || '';
+  document.getElementById('set-director-name').value = s.directorName || '';
+  document.getElementById('set-academy-phone').value = s.phone || '';
+  document.getElementById('set-academy-addr').value = s.addr || '';
+  applySettings(s);
+  loadGsheetSettings();
+  const kakaoEl = document.getElementById('set-kakao-link');
+  if (kakaoEl) kakaoEl.href = 'https://open.kakao.com/';
+}
+function resetAllData() {
+  if (!confirm('⚠️ 정말로 모든 데이터를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.')) return;
+  if (!confirm('한 번 더 확인합니다. 정말 삭제하시겠습니까?')) return;
+  const keys = Object.keys(localStorage).filter(k => k.startsWith('academy_'));
+  keys.forEach(k => localStorage.removeItem(k));
+  alert('초기화 완료. 페이지를 새로고침합니다.');
+  location.reload();
+}
+
+// ========================
+// WELCOME / FIRST RUN
+// ========================
+let welcomeCurrentStep = 1;
+const WELCOME_TOTAL = 3;
+
+function initWelcomeDots() {
+  const dots = document.getElementById('welcome-dots');
+  dots.innerHTML = Array.from({length: WELCOME_TOTAL}, (_,i) =>
+    `<div class="step-dot ${i===0?'active':''}" id="wdot-${i+1}"></div>`
+  ).join('');
+}
+function updateWelcomeDots(step) {
+  for (let i = 1; i <= WELCOME_TOTAL; i++) {
+    const d = document.getElementById('wdot-' + i);
+    if (d) d.classList.toggle('active', i === step);
+  }
+}
+function welcomeNext(step) {
+  if (step === 1) {
+    const name = document.getElementById('welcome-academy-name').value.trim();
+    if (!name) { alert('공부방 이름을 입력해 주세요'); return; }
+    const s = getSettings();
+    s.academyName = name;
+    s.directorName = document.getElementById('welcome-director-name').value.trim();
+    localStorage.setItem('academy_settings', JSON.stringify(s));
+    applySettings(s);
+  }
+  document.getElementById('ws-' + step).classList.remove('active');
+  welcomeCurrentStep = step + 1;
+  document.getElementById('ws-' + welcomeCurrentStep).classList.add('active');
+  updateWelcomeDots(welcomeCurrentStep);
+}
+function welcomePrev(step) {
+  document.getElementById('ws-' + step).classList.remove('active');
+  welcomeCurrentStep = step - 1;
+  document.getElementById('ws-' + welcomeCurrentStep).classList.add('active');
+  updateWelcomeDots(welcomeCurrentStep);
+}
+function finishWelcome() {
+  localStorage.setItem('academy_welcomed', '1');
+  closeModal('welcome-modal');
+  renderDashboard();
+}
+function checkFirstRun() {
+  if (!localStorage.getItem('academy_welcomed')) {
+    initWelcomeDots();
+    openModal('welcome-modal');
+  }
+}
+
+// ========================
+// PRORATA (일할 계산)
+// ========================
+function calcProrata() {
+  const fee = Number(document.getElementById('pr-fee').value);
+  const startStr = document.getElementById('pr-start').value;
+  const result = document.getElementById('prorata-result');
+  if (!fee || !startStr) { result.style.display = 'none'; return; }
+  const start = new Date(startStr);
+  const y = start.getFullYear(), m = start.getMonth();
+  const daysInMonth = new Date(y, m + 1, 0).getDate();
+  const remainDays = daysInMonth - start.getDate() + 1;
+  const prorated = Math.round(fee / daysInMonth * remainDays);
+  document.getElementById('pr-amount').textContent = fmt(prorated) + '원';
+  document.getElementById('pr-detail').innerHTML =
+    `월 수강료 ${fmt(fee)}원 ÷ ${daysInMonth}일 × ${remainDays}일 (잔여일)<br>` +
+    `<span style="color:var(--accent); font-weight:700">${start.getMonth()+1}월 납부 금액: ${fmt(prorated)}원</span>`;
+  result.style.display = 'block';
+}
+
+
+// ========================
+// PWA - SERVICE WORKER
+// ========================
+if ('serviceWorker' in navigator) {
+  const swCode = `// 공부방 통합관리 시스템 - Service Worker
+// 오프라인 작동 및 앱 캐싱 담당
+
+const CACHE_NAME = 'gongbubang-v2.1';
+const ASSETS = [
+  './',
+  './index.html',
+  'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&display=swap',
+];
+
+// 설치: 핵심 파일 캐싱
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(ASSETS).catch(() => {
+        // 폰트 캐싱 실패해도 무시 (오프라인 시 시스템 폰트 사용)
+        return cache.addAll(['./']);
+      });
+    })
+  );
+  self.skipWaiting();
+});
+
+// 활성화: 이전 캐시 정리
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys
+          .filter((k) => k !== CACHE_NAME)
+          .map((k) => caches.delete(k))
+      )
+    )
+  );
+  self.clients.claim();
+});
+
+// 요청 가로채기: 캐시 우선, 없으면 네트워크
+self.addEventListener('fetch', (e) => {
+  // POST 요청 (구글 시트 연동)은 캐시 안 함
+  if (e.request.method !== 'GET') return;
+
+  e.respondWith(
+    caches.match(e.request).then((cached) => {
+      if (cached) return cached;
+      return fetch(e.request)
+        .then((response) => {
+          // 성공한 응답은 캐시에 저장
+          if (response && response.status === 200) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(e.request, clone);
+            });
+          }
+          return response;
+        })
+        .catch(() => {
+          // 오프라인 + 캐시 없음: 기본 응답
+          return new Response('오프라인 상태입니다. 캐시된 데이터를 사용합니다.', {
+            status: 200,
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+          });
+        });
+    })
+  );
+});
+`;
+  const blob = new Blob([swCode], { type: 'application/javascript' });
+  const swUrl = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).then((reg) => {
+    console.log('SW 등록됨:', reg.scope);
+  }).catch((err) => {
+    console.warn('SW 등록 실패:', err);
+  });
+}
+
+// PWA 설치 유도 (안드로이드 크롬)
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // 설치 배너 표시
+  const banner = document.getElementById('pwa-install-banner');
+  if (banner) banner.style.display = 'flex';
+});
+window.addEventListener('appinstalled', () => {
+  const banner = document.getElementById('pwa-install-banner');
+  if (banner) banner.style.display = 'none';
+  deferredPrompt = null;
+});
+function installPWA() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+  }
+}
+
+// ========================
+// INIT
+// ========================
+document.getElementById('today-date').textContent = now.toLocaleDateString('ko-KR', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+document.getElementById('att-month-display').textContent = monthStr(attYear, attMonth);
+document.getElementById('tuition-month-display').textContent = monthStr(tuitionYear, tuitionMonth);
+document.getElementById('finance-month-display').textContent = monthStr(financeYear, financeMonth);
+updateFinanceCategories();
+applySettings();
+renderDashboard();
+checkFirstRun();
+// 폼 자동저장 이벤트 바인딩
+Object.keys(FORM_DRAFTS).forEach(modalId => bindAutosave(modalId));
+</script>
+</body>
+</html>
